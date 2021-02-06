@@ -1,0 +1,8 @@
+<members xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="members.xsd">
+  <member id="1" name="Taylor Swift" age="33" comments="Professional" level="Advanced" joined="2014-10-26T08:36:28" membershipExpiration="2004-02-14T20:44:14" hasPrivateBoat="true" privateBoatId="13" email="taylor@swift.com" password="1989"/>
+  <member id="2" name="Beyonce Knowles" age="40" level="Beginner" joined="2009-10-26T08:36:28" membershipExpiration="2004-02-14T00:00:00"  email="queen@beyonce.com" password="apeshit"/>
+  <member id="3" name="Britney Spears" age="50" level="Intermediate" joined="2017-10-26T08:36:28" membershipExpiration="2004-02-14T20:44:14"  email="britney23@hotmail.com" password="password"/>
+  <member id="4" name="Dror" age="60" level="Advanced" joined="1997-10-26T08:36:28" membershipExpiration="2050-02-14T20:44:14"  phone="012-3456" email="dror@drc.org.il" password="1234" manager="true"/>
+  <member id="5" name="Alex" age="46" level="Advanced" joined="2007-10-26T08:36:28" membershipExpiration="2050-02-14T20:44:14"  phone="054-12156" email="alex@drc.org.il" password="4321" manager="true"/>
+</members>

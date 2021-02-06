@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<members>
+    <member name="Dor Lasri" joined="2021-01-13T21:19:50" phone="050-8510787" email="lasridor@gmail.com" password="aVbGQS2UX3fykWGFayLCv8A9WD2kSsvldDjScxjgAY8=" manager="true"/>
+    <member name="Sapir" joined="2021-01-18T13:25:29" membershipExpiration="2022-01-01T10:10:10" email="sapir@gmail.com" password="aVbGQS2UX3fykWGFayLCv8A9WD2kSsvldDjScxjgAY8=" manager="false"/>
+    <member id="1" name="Taylor Swift" age="33" comments="Professional" level="Advanced" joined="2014-10-26T08:36:28" membershipExpiration="2004-02-14T20:44:14" email="taylor@swift.com" password="D6TKwYxk8CDspFtgJiFGmC0XcBqrxrXyf9k9S7cm+I4=" manager="false"/>
+    <member id="2" name="Beyonce Knowles" age="40" level="Beginner" joined="2009-10-26T08:36:28" membershipExpiration="2004-02-14T00:00:00" email="queen@beyonce.com" password="goHS9UZX6Kz68vCpjFMgVlyRjhKSIfzvP3IhuiSz610=" manager="false"/>
+    <member id="3" name="Britney Spears" age="50" level="Intermediate" joined="2017-10-26T08:36:28" membershipExpiration="2004-02-14T20:44:14" email="britney23@hotmail.com" password="F4Q4VPtFn9UgYIToH8b6mxf5nj9NFfw+cifPOpV9pwo=" manager="false"/>
+    <member id="4" name="Dror" age="60" level="Advanced" joined="1997-10-26T08:36:28" membershipExpiration="2050-02-14T20:44:14" email="dror@drc.org.il" password="aVbGQS2UX3fykWGFayLCv8A9WD2kSsvldDjScxjgAY8=" manager="true"/>
+    <member id="5" name="Alex" age="46" level="Advanced" joined="2007-10-26T08:36:28" membershipExpiration="2050-02-14T20:44:14" email="alex@drc.org.il" password="xbdzovOWOFio8CtPYnpEcYAlknX64EqNizOwyx5W60w=" manager="true"/>
+</members>

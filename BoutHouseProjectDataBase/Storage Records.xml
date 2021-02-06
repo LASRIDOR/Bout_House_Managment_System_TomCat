@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<boats>
+    <boat id="26" name="angel dor" type="Pair" private="false" wide="true" hasCoxswain="false" costal="true" outOfOrder="false"/>
+    <boat id="110" name="110" type="Eight" private="false" wide="false" hasCoxswain="true" costal="false" outOfOrder="false"/>
+</boats>

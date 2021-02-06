@@ -1,0 +1,7 @@
+<activities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="activities.xsd">
+  <timeframe name="Rowing at 6" startTime="06:00" endTime="07:30"/>
+  <timeframe name="Rowing at 6:30" startTime="06:30" endTime="08:00"/>
+  <timeframe name="Rowing at 7" startTime="07:00" endTime="08:30"/>
+  <timeframe name="Group practice" startTime="09:00" endTime="10:30" boatType="Coxed_Four"/>
+</activities>

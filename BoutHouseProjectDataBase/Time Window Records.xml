@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<activities>
+    <timeframe name="rowing at sunset" startTime="10:00" endTime="12:00" boatType="Pair"/>
+    <timeframe name="freedom row" startTime="12:00" endTime="14:00"/>
+    <timeframe name="Rowing at 6" startTime="06:00" endTime="07:30"/>
+    <timeframe name="Rowing at 7" startTime="07:00" endTime="08:30"/>
+    <timeframe name="Group practice" startTime="09:00" endTime="10:30" boatType="Coxed_Four"/>
+</activities>

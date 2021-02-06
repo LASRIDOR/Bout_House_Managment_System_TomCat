@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Account page for bout house users">
+    <meta name="author" content="Dor Lasri">
+    <title>Bout House - Member Account Page</title>
+    <!-- Bootstrap core CSS -->
+    <script src="update.js"></script>
+    <script src="../../utils/all/instances/update.js"></script>
+    <link href="../../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+
+
+    <!-- Custom styles for this template -->
+    <link href="../../utils/all/navbar/navbar-top-fixed.css" rel="stylesheet">
+</head>
+    <body id="body" onhashchange="removeAllManagerPermission()">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+
+        <div class="container-fluid">
+            <img class="mb-4" src="../../assets/brand/boutLogo.png" width="105" height="70" href="#">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">Member</a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdown01">
+                            <li><a class="dropdown-item" href="account.html">Account</a></li>
+                            <li><a class="dropdown-item" href="../reservation/reservation.html">Reservation</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="dropdown02" data-bs-toggle="dropdown" aria-expanded="false">Manager</a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdown02">
+                            <li><a class="dropdown-item" href="#">Account</a></li>
+                            <li><a class="dropdown-item" href="#">Reservation</a></li>
+                            <li><a class="dropdown-item" href="#">Time Window</a></li>
+                            <li><a class="dropdown-item" href="#">Boat</a></li>
+                            <li><a class="dropdown-item" href="#">Xml</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="d-flex" action="../../logout" method="post">
+                    <button name="logout" class="btn btn-outline-success" type="submit">logout</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <script src="../../assets/dist/js/bootstrap.bundle.min.js"></script>
+
+    <div class="row py-lg-5" id="about-dialog-text-area">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light">Account</h1>
+            <p class="lead text-muted">As a member of this club you can make changes in your profile (Email, Password, Phone Number, Username</p>
+            <p>
+                <a onclick="fetchUpdateDetails('../../get all fields', 'Member')" class="btn btn-primary my-2">Update Profile</a>
+            </p>
+        </div>
+    </div>
+
+</body>
+</html>
