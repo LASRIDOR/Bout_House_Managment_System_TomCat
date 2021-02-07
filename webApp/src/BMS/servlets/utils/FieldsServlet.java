@@ -1,7 +1,9 @@
 package BMS.servlets.utils;
 
 import BMS.boutHouse.form.exceptions.WrongTypeException;
+import BMS.boutHouse.form.field.infoField.FieldTypeIsNotSupportExcpetion;
 import BMS.boutHouse.form.field.infoField.InfoField;
+import BMS.boutHouse.form.field.infoField.UserInputForInfoFIeldException;
 import BMS.boutHouse.form.field.type.Informable;
 import BMS.boutHouse.form.field.type.MemberFieldType;
 import BMS.managment.CEO.BoutHouseManager;
@@ -33,7 +35,7 @@ public class FieldsServlet extends HttpServlet {
                 JSONObject fields = new JSONObject();
                 BoutHouseManager manager = ServletUtils.getBoutHouseManager(getServletContext());
                 BoutHouseDataType boutHouseDataType = ServletUtils.getTypeOfManager(req);
-                Map<Informable, InfoField> allFieldsOfInstance = manager.getAllFieldsOfInstance(boutHouseDataType, SessionUtils.getEmail(req));
+                Map<Informable, InfoField> allFieldsOfInstance = manager.getAllFieldsOfInstance(boutHouseDataType, ServletUtils.getIdOfInstance(req, boutHouseDataType));
 
                 allFieldsOfInstance.values().forEach((field) -> {
                     try {
@@ -45,7 +47,7 @@ public class FieldsServlet extends HttpServlet {
 
                 out.println(fields);
                 out.flush();
-        } catch (ExistingException | WrongTypeException e) {
+        } catch (ExistingException | WrongTypeException | UserInputForInfoFIeldException | FieldTypeIsNotSupportExcpetion e) {
             System.out.println(e.getMessage());
         }
     }

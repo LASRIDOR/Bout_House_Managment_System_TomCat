@@ -1,5 +1,7 @@
 package BMS.boutHouse.form.field.type;
 
+import BMS.boutHouse.form.exceptions.WrongTypeException;
+
 public enum ReservationInfoFieldType implements Informable {
     RESERVATION_NUMBER("Reservation Number", "^[1-9]\\d*$"),
     //^[a-zA-Z0-9,#-.\s]*$
@@ -33,6 +35,50 @@ public enum ReservationInfoFieldType implements Informable {
     @Override
     public String getRegexPattern() {
         return regexPattern;
+    }
+
+    public static ReservationInfoFieldType createReservationInfoField(String nameOfInformable) throws WrongTypeException {
+        ReservationInfoFieldType informableToReturn;
+
+        switch (nameOfInformable) {
+            case "Reservation Number":
+                informableToReturn = ReservationInfoFieldType.RESERVATION_NUMBER;
+                break;
+            case "Name of Rower":
+                informableToReturn = ReservationInfoFieldType.NAME_ROWER;
+                break;
+            case "Date of Practice (Pattern: YYYY-MM-DD)":
+                informableToReturn = ReservationInfoFieldType.DATE_OF_PRACTICE;
+                break;
+            case "Time window":
+                informableToReturn = ReservationInfoFieldType.TIME_WINDOW;
+                break;
+            case "Boat Type: (1X/2-/2+/2X/2X+/4+/4-/4X+/4X/8X+/8+) (Narrow/Wide) (FlatWater/Coastal)\ni.e. 2- Wide Coastal":
+                informableToReturn = ReservationInfoFieldType.BOAT_TYPE;
+                break;
+            case "Name of Reservation Maker":
+                informableToReturn = ReservationInfoFieldType.NAME_OF_RESERVATION_MAKER;
+                break;
+            case "Date of Reservation":
+                informableToReturn = ReservationInfoFieldType.DATE_OF_RESERVATION;
+                break;
+            case "Names of Rowers":
+                informableToReturn = ReservationInfoFieldType.NAMES_OF_ROWERS;
+                break;
+            case "Coxswain name (if coxswain has not been picked, type \"null\")":
+                informableToReturn = ReservationInfoFieldType.NAME_COXSWAIN;
+                break;
+            case "Number of rowers (including the lead rower)":
+                informableToReturn = ReservationInfoFieldType.NUMBER_OF_ROWERS;
+                break;
+            case "Assigned boat serial number":
+                informableToReturn = ReservationInfoFieldType.ASSIGNED_BOAT_SERIAL_NUMBER;
+                break;
+            default:
+                throw new WrongTypeException(nameOfInformable);
+        }
+
+        return informableToReturn;
     }
 
     public void setRegexPattern(String regexPattern) {

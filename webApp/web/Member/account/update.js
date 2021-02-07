@@ -6,26 +6,39 @@ const LEVEL_KEY = "Level (Beginner/Intermediate/Advanced)"
 const EXPIRY_KEY = "Date Of Expiry (Pattern: YYYY-MM-DDTHH:MM:SS)"
 const JOIN_KEY = "Date Of Join (Pattern: YYYY-MM-DDTHH:MM:SS)"
 
+async function fetchMemberUpdateDetails(urlOfFields) {
+    let params = new URLSearchParams()
 
-function removeAllManagerPermission(){
-    removeElementIfExist(IS_MANAGER_KEY)
-    removeElementIfExist(BOAT_HASH_KEY)
-    removeElementIfExist(AGE_KEY)
-    removeElementIfExist(COMMENT_KEY)
-    removeElementIfExist(LEVEL_KEY)
-    removeElementIfExist(EXPIRY_KEY)
-    removeElementIfExist(JOIN_KEY)
+    const request = new Request(urlOfFields, {
+        method: 'post',
+        body:params
+    })
+
+    const response = await fetch(request)
+    const loggedMemberDetails = await response.json()
+    removeAllManagerPermission(loggedMemberDetails)
+    createMemberUpdateForm(loggedMemberDetails, "Member")
+    changeFormAction()
 }
 
-function removeElementIfExist(idOfElement){
-    const body = document.getElementById("body")
-    const elementToRemove = document.getElementById(idOfElement)
+function removeAllManagerPermission(loggedMemberDetails){
+    removeElementIfExist(loggedMemberDetails, IS_MANAGER_KEY)
+    removeElementIfExist(loggedMemberDetails, BOAT_HASH_KEY)
+    removeElementIfExist(loggedMemberDetails, AGE_KEY)
+    removeElementIfExist(loggedMemberDetails, COMMENT_KEY)
+    removeElementIfExist(loggedMemberDetails, LEVEL_KEY)
+    removeElementIfExist(loggedMemberDetails, EXPIRY_KEY)
+    removeElementIfExist(loggedMemberDetails, JOIN_KEY)
 
-    if (elementToRemove != null){
-        body.removeChild(elementToRemove)
-    }
+    return loggedMemberDetails
 }
 
-window.addEventListener('change', (event) => {
-    removeAllManagerPermission()
-});
+function removeElementIfExist(loggedMemberDetails, keyToRemove){
+    delete loggedMemberDetails[keyToRemove];
+}
+
+function changeFormAction() {
+    const form = document.getElementById("updateForm")
+
+    form.action = "/webApp/logged member update"
+}

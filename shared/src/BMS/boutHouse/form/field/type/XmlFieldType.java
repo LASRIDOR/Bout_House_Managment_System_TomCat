@@ -1,5 +1,7 @@
 package BMS.boutHouse.form.field.type;
 
+import BMS.boutHouse.form.exceptions.WrongTypeException;
+
 public enum XmlFieldType implements Informable {
     XML_PATH("XML Path", "^(.+\\/)+(.+\\.xml\\b)");
 
@@ -21,10 +23,20 @@ public enum XmlFieldType implements Informable {
         return regexPattern;
     }
 
+    public XmlFieldType createInformable(String nameOfInformable) throws WrongTypeException {
+        XmlFieldType fieldTypeToReturn;
+
+        if ("XML Path".equals(nameOfInformable)) {
+            fieldTypeToReturn = XmlFieldType.XML_PATH;
+        } else {
+            throw new WrongTypeException(nameOfInformable);
+        }
+
+        return fieldTypeToReturn;
+    }
+
     @Override
     public String toString() {
-        return "XmlFieldType{" +
-                "nameOFField='" + nameOFField + '\'' +
-                '}';
+        return "nameOFField='" + nameOFField + "'";
     }
 }

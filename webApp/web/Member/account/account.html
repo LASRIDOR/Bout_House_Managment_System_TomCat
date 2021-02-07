@@ -7,7 +7,7 @@
     <meta name="author" content="Dor Lasri">
     <title>Bout House - Member Account Page</title>
     <!-- Bootstrap core CSS -->
-    <script src="update.js"></script>
+    <script src="./update.js"></script>
     <script src="../../utils/all/instances/update.js"></script>
     <link href="../../assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -31,7 +31,7 @@
     <!-- Custom styles for this template -->
     <link href="../../utils/all/navbar/navbar-top-fixed.css" rel="stylesheet">
 </head>
-    <body id="body" onhashchange="removeAllManagerPermission()">
+    <body id="body">
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
 
         <div class="container-fluid">
@@ -69,11 +69,11 @@
     <script src="../../assets/dist/js/bootstrap.bundle.min.js"></script>
 
     <div class="row py-lg-5" id="about-dialog-text-area">
-        <div class="col-lg-6 col-md-8 mx-auto">
+        <div class="col-lg-6 col-md-8 mx-auto" id="buttonArea">
             <h1 class="fw-light">Account</h1>
             <p class="lead text-muted">As a member of this club you can make changes in your profile (Email, Password, Phone Number, Username</p>
             <p>
-                <a onclick="fetchUpdateDetails('../../get all fields', 'Member')" class="btn btn-primary my-2">Update Profile</a>
+                <a onclick="fetchMemberUpdateDetails('../../get member fields')" class="btn btn-primary my-2">Update Profile</a>
             </p>
         </div>
     </div>

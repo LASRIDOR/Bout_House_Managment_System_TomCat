@@ -1,9 +1,31 @@
 const DETAILS_CLASS_NAME = "row mt-3"
 const DETAILS_DIV_CLASS_NAME = "col-md-12"
 
+function createInputForIdOfInstance(instanceType){
+    const htmlContentEl = document.getElementById('buttonArea');
+    const submitButton = document.createElement('a')
+    const instanceIdInput = document.createElement('input')
+    const labelEl = document.createElement('label')
+
+    labelEl.className = "labels"
+    labelEl.innerText = "Enter Id (email | boat id | reservation number | Time Window Name)"
+    instanceIdInput.id = "instanceId"
+    instanceIdInput.name = "Enter Id"
+    instanceIdInput.type = "text"
+    instanceIdInput.className = "form-control"
+    submitButton.className = "btn btn-primary my-2"
+    submitButton.innerText = "Submit"
+    submitButton.setAttribute("onclick", "fetchUpdateDetails('../../get all fields', '"+ instanceType+"')")
+
+    htmlContentEl.append(instanceIdInput)
+    htmlContentEl.append(submitButton)
+}
+
 async function fetchUpdateDetails(urlOfFields, boutHouseDataType) {
+    const idEl = document.getElementById("instanceId")
     let params = new URLSearchParams()
 
+    params.set("instanceId", idEl.value)
     params.set("BoutHouseDataType", boutHouseDataType)
     const request = new Request(urlOfFields, {
         method: 'post',
@@ -36,9 +58,14 @@ function createSubDiv(loggedMemberDetails = [], boutHouseDataType){
 function createForm(loggedMemberDetails = [], boutHouseDataType) {
     const profileForm = document.createElement('form')
 
+    profileForm.id = "updateForm"
     profileForm.className = "col-md-5 border"
-    profileForm.action = "update"
+    profileForm.name = "updateForm"
+    profileForm.action = "/update"
     profileForm.method = "post"
+    profileForm.addEventListener('submit', () => {
+        submitUpdateForm()
+    })
     profileForm.appendChild(createMainFormDiv(loggedMemberDetails, boutHouseDataType))
 
     return profileForm
@@ -46,12 +73,15 @@ function createForm(loggedMemberDetails = [], boutHouseDataType) {
 
 function createMainFormDiv(loggedMemberDetails = [], boutHouseDataType) {
     const mainFormDiv = document.createElement('div')
+    const errordiv = document.createElement('div')
 
+    errordiv.id = "errorMessage"
     mainFormDiv.className = "p-3 py-5"
     mainFormDiv.append(createUserFormHeader(boutHouseDataType))
     mainFormDiv.append(createBoutHouseInstanceHiddenInput(boutHouseDataType))
     mainFormDiv.append(createFieldPlace(loggedMemberDetails))
     mainFormDiv.append(createSubmitButtonEl())
+    mainFormDiv.append(errordiv)
 
     return mainFormDiv
 }
@@ -67,7 +97,7 @@ function createUserFormHeader(boutHouseDataType) {
     divHeaderEl.className = "d-flex justify-content-between align-items-center mb-3";
     const headerEl = document.createElement('h4')
     headerEl.className = 'text-right'
-    headerEl.innerText = boutHouseDataType
+    headerEl.innerText = boutHouseDataType + " Details"
     divHeaderEl.append(headerEl)
     return headerEl;
 }
@@ -216,4 +246,19 @@ function createSubmitButtonEl() {
 
  */
 
-//activate the timer calls after the page is loaded
+async function submitUpdateForm() {
+    const chatFormEl = document.forms.namedItem('updateForm');
+    const errorDiv = document.getElementById("errorMessage")
+
+    const data = new URLSearchParams();
+    for (const pair of new FormData(chatFormEl)) {
+        data.append(pair[0], pair[1]);
+    }
+
+    const message = await fetch(chatFormEl.action, {
+        method: chatFormEl.method,
+        body: data
+    });
+
+    errorDiv.innerText = message;
+}

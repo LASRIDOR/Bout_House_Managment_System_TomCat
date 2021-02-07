@@ -1,5 +1,7 @@
 package BMS.boutHouse.form.field.type;
 
+import BMS.boutHouse.form.exceptions.WrongTypeException;
+
 public enum TimeWindowInfoFieldType implements Informable {
     TIME_WINDOW_NAME("Time Window Name", "^[A-Za-z0-9 ]*[A-Za-z0-9][A-Za-z0-9 ]*$"),
     ACTIVITY_START_TIME("Activity Start Time (Pattern: HH:MM)", "^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$"),
@@ -23,6 +25,29 @@ public enum TimeWindowInfoFieldType implements Informable {
     @Override
     public String getRegexPattern() {
         return this.regexPattern;
+    }
+
+    public static TimeWindowInfoFieldType createTimeWindowInfoField(String nameOfInformable) throws WrongTypeException {
+        TimeWindowInfoFieldType informableToReturn;
+
+        switch (nameOfInformable) {
+            case "Time Window Name":
+                informableToReturn = TimeWindowInfoFieldType.TIME_WINDOW_NAME;
+                break;
+            case "Activity Start Time (Pattern: HH:MM)":
+                informableToReturn = TimeWindowInfoFieldType.ACTIVITY_START_TIME;
+                break;
+            case "Activity End Time (Pattern: HH:MM)":
+                informableToReturn = TimeWindowInfoFieldType.ACTIVITY_END_TIME;
+                break;
+            case "(Optional) Boat Type: (1X/2-/2+/2X/2X+/4+/4-/4X+/4X/8X+/8+) (Narrow/Wide) (FlatWater/Coastal)\ni.e. 2- Wide Coastal":
+                informableToReturn = TimeWindowInfoFieldType.BOAT_TYPE;
+                break;
+            default:
+                throw new WrongTypeException(nameOfInformable);
+        }
+
+        return informableToReturn;
     }
 
     public void setNameOfField(String nameOfField) {
