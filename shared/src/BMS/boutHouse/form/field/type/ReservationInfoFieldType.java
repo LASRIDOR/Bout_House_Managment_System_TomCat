@@ -3,7 +3,7 @@ package BMS.boutHouse.form.field.type;
 import BMS.boutHouse.form.exceptions.WrongTypeException;
 
 public enum ReservationInfoFieldType implements Informable {
-    RESERVATION_NUMBER("Reservation Number", "^[1-9]\\d*$"),
+    RESERVATION_NUMBER("Reservation Number", "^[0-9]\\d*$"),
     //^[a-zA-Z0-9,#-.\s]*$
     NAME_ROWER("Name of Rower", "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$"),
     DATE_OF_PRACTICE("Date of Practice (Pattern: YYYY-MM-DD)", "([12]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))"),

@@ -3,7 +3,7 @@ package BMS.boutHouse.form.field.type;
 import BMS.boutHouse.form.exceptions.WrongTypeException;
 
 public enum XmlFieldType implements Informable {
-    XML_PATH("XML Path", "^(.+\\/)+(.+\\.xml\\b)");
+    XML_PATH("XML Path", ".*");
 
     private final String nameOFField;
     private final String regexPattern;

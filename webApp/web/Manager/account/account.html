@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Account page for bout house managers">
+    <meta name="author" content="Dor Lasri">
+    <title>Bout House - Manager Account Page</title>
+    <script src="/webApp/utils/all/instances/utils/idOfInstance.js"></script>
+    <script src="/webApp/utils/all/instances/update/update.js"></script>
+    <script src="/webApp/utils/all/instances/create/create.js"></script>
+    <script src="/webApp/utils/all/instances/delete/delete.js"></script>
+    <script src="/webApp/utils/all/instances/display/displayAll.js"></script>
+    <script src="/webApp/pages/manager/account/create/create.js"></script>
+    <script src="/webApp/utils/all/instances/utils/formCreation.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/webApp/assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body id="body">
+<!--Navigation bar-->
+<div id="nav-placeholder">
+
+</div>
+
+<script>
+    $(function(){
+        $("#nav-placeholder").load("/webApp/utils/all/navbar/navbarFixed.html");
+    });
+</script>
+
+<div class="row py-lg-5" id="about-dialog-text-area">
+    <div class="col-lg-6 col-md-8 mx-auto" id="buttonArea">
+        <h1 class="fw-light">Account</h1>
+        <p class="lead text-muted">As a manger of this club you have access to everything you want you can create, update and delete any instance of this club (Member, Boat, Reservation, Time window)
+        in addition you can
+        </p>
+        <p>
+            <a onclick="createInputForIdOfInstance('Member', 'Update')" class="btn btn-primary my-2">Update</a>
+            <a onclick="fetchManagerCreateMemberInstance()" class="btn btn-primary my-2">Create</a>
+            <a onclick="createInputForIdOfInstance('Member', 'Delete')" class="btn btn-primary my-2">Delete</a>
+            <a onclick="fetchDisplayAllInstances('Member')" class="btn btn-primary my-2">Display All</a>
+        </p>
+        <div id="errorMessage"></div>
+    </div>
+</div>
+
+</body>
+</html>

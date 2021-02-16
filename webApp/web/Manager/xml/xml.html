@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="XML page for bout house managers">
+    <meta name="author" content="Dor Lasri">
+    <title>Bout House - Manager XML Page</title>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <link href="/webApp/assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+<!--Navigation bar-->
+<div id="nav-placeholder">
+
+</div>
+
+<script>
+    $(function(){
+        $("#nav-placeholder").load("/webApp/utils/all/navbar/navbarFixed.html");
+    });
+</script>
+
+
+
+<div class="col-md-6 offset-md-3 mt-5">
+    <br>
+    <form accept-charset="UTF-8" action="/webApp/read xml" method="POST">
+        <div class="form-group">
+            <label for="boutHouseDataType">Favourite Platform</label>
+            <select class="form-control" id="boutHouseDataType" name="BoutHouseDataType" required="required">
+                <option value="Member">Members</option>
+                <option value="Boat">Boat</option>
+                <option value="Time Window">Time Window</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="erase">Erase Rest OF the Instances</label>
+            <select class="form-control" id="erase" name="erase" required="required">
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            </select>
+        </div>
+        <hr>
+        <div class="form-group mt-3">
+            <label class="mr-2">Upload your CV:</label>
+            <input type="file" name="file" required="required">
+        </div>
+        <hr>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+
+
+</body>
+</html>

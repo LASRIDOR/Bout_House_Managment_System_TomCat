@@ -126,7 +126,7 @@ public class BoutHouseManager {
         updateXmlWithInstanceUpdate(systemManager, managerType, idOfInstance, toUpdate);
     }
 
-    public void updateXmlWithInstanceUpdate(SystemManager manager, BoutHouseDataType managerType, InfoField<String> idOfInstance, InfoField toUpdate) throws ExistingException, FileNotFoundException, ExtensionException, JAXBException {
+    private void updateXmlWithInstanceUpdate(SystemManager manager, BoutHouseDataType managerType, InfoField<String> idOfInstance, InfoField toUpdate) throws ExistingException, FileNotFoundException, ExtensionException, JAXBException {
         if (managerType != BoutHouseDataType.RESERVATION) {
             InfoField<String> idAfterUpdate = getIdInCaseOfUpdatingId(idOfInstance, toUpdate);
             xmlManager.updateInstanceToExistingXml(managerType, idOfInstance, manager.getInstanceWithId(idAfterUpdate));
@@ -168,12 +168,27 @@ public class BoutHouseManager {
         return loadingErrors.toString();
     }
 
+    public String loadXml(BoutHouseDataType typeOfManager, InfoField<String> emailOfLoader, InfoField<String> xmlPath) throws FileNotFoundException, ExtensionException, OnlyManagerAccessException, JAXBException, FieldContainException, WrongTypeException, NeedToLoginException {
+        ArrayList<ArrayList<InfoField>> instancesArgs = xmlManager.loadArgsFromXml(typeOfManager, emailOfLoader, xmlPath);
+        StringBuilder loadingErrors = new StringBuilder("Xml Was Loaded Successfully (in case of errors list of errors will be attached)" + System.lineSeparator());
+
+        for (ArrayList<InfoField> instanceArgs : instancesArgs) {
+            try {
+                this.createNewInstance(typeOfManager, emailOfLoader, instanceArgs);
+            } catch (InvalidInstanceField | ExistingException e) {
+                loadingErrors.append(e.getMessage() + System.lineSeparator());
+            }
+        }
+
+        return loadingErrors.toString();
+    }
+
     public String createAndEraseXmlInstances(BoutHouseDataType typeOfManager, InfoField<String> emailOfCreator, ArrayList<ArrayList<InfoField>> instancesArgs) throws ExtensionException, JAXBException, FileNotFoundException, WrongTypeException, OnlyManagerAccessException, NeedToLoginException {
         restartSystemManager(typeOfManager);
         return createXmlInstances(typeOfManager, emailOfCreator, instancesArgs);
     }
 
-    private void restartSystemManager(BoutHouseDataType typeOfManager) throws FileNotFoundException, ExtensionException, JAXBException, WrongTypeException {
+    public void restartSystemManager(BoutHouseDataType typeOfManager) throws FileNotFoundException, ExtensionException, JAXBException, WrongTypeException {
         xmlManager.resetDataBaseOfBoutHouseType(typeOfManager);
         boutHouseManagers.put(typeOfManager, createNewSystem(typeOfManager));
     }

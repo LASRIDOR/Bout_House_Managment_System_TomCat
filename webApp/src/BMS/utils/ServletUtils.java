@@ -1,6 +1,5 @@
 package BMS.utils;
 
-import BMS.boutHouse.form.BoutHouseInstance;
 import BMS.boutHouse.form.exceptions.WrongTypeException;
 import BMS.boutHouse.form.field.infoField.FieldTypeIsNotSupportExcpetion;
 import BMS.boutHouse.form.field.infoField.InfoField;
@@ -13,7 +12,6 @@ import BMS.server.BoutHouseDataType;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import static BMS.constants.Constants.BOUT_HOUSE_DATA_TYPE;
 
@@ -32,11 +30,12 @@ public class ServletUtils {
     }
 
     public static InfoField getIdOfInstance(HttpServletRequest request, BoutHouseDataType instanceType) throws UserInputForInfoFIeldException, FieldTypeIsNotSupportExcpetion {
-        Informable typeOfId = getTypeOfInstance(instanceType);
-        return getInfoField(request, typeOfId);
+        Informable typeOfId = getTypeOfIdInstance(instanceType);
+        String inputValue = request.getParameter("instanceId");
+        return inputValue != null ? InfoFieldMaker.createInfoField(inputValue, typeOfId) : null;
     }
 
-    private static Informable getTypeOfInstance(BoutHouseDataType instanceType) {
+    private static Informable getTypeOfIdInstance(BoutHouseDataType instanceType) {
         Informable typeOfId;
 
         if (instanceType == BoutHouseDataType.MEMBERS){
@@ -69,6 +68,25 @@ public class ServletUtils {
         }
         else {
             typeOfField = TimeWindowInfoFieldType.createTimeWindowInfoField(typeString);
+        }
+
+        return typeOfField;
+    }
+
+    public static Informable[] getTypeOfField(BoutHouseDataType boutHouseDataType) {
+        Informable[] typeOfField;
+
+        if (boutHouseDataType == BoutHouseDataType.MEMBERS){
+            typeOfField = MemberFieldType.values();
+        }
+        else if (boutHouseDataType == BoutHouseDataType.BOATS){
+            typeOfField = BoatInfoFieldType.values();
+        }
+        else if (boutHouseDataType == BoutHouseDataType.RESERVATION){
+            typeOfField = ReservationInfoFieldType.values();
+        }
+        else {
+            typeOfField = TimeWindowInfoFieldType.values();
         }
 
         return typeOfField;
