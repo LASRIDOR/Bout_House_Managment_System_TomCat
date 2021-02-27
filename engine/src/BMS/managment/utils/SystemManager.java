@@ -13,7 +13,7 @@ import java.util.Map;
 public abstract class SystemManager implements BoutHouseManageable {
     protected final Map<InfoField, BoutHouseInstance> instances = new Hashtable<>();
 
-    protected void checkInstanceExistence(InfoField<String> instanceID, boolean isExist) throws ExistingException {
+    public void checkInstanceExistence(InfoField<String> instanceID, boolean isExist) throws ExistingException {
         if(instances.containsKey(instanceID) == isExist) {
             throw new ExistingException(instanceID.getValue(), isExist);
         }

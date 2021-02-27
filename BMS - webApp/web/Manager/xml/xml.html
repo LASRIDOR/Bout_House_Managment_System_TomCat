@@ -6,7 +6,8 @@
     <meta name="description" content="XML page for bout house managers">
     <meta name="author" content="Dor Lasri">
     <title>Bout House - Manager XML Page</title>
-    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="/webApp/assets/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/webApp/utils/all/navbar/navbar.js"></script>
     <script src="/webApp/pages/manager/xml/xml.js"></script>
     <link href="/webApp/assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -18,16 +19,36 @@
 </div>
 
 <script>
-    $(function(){
-        $("#nav-placeholder").load("/webApp/utils/all/navbar/navbarFixed.html");
-    });
+    async function includeNavbar() {
+        const navbarEl = document.getElementById("nav-placeholder")
+
+        await fetch("/webApp/utils/all/navbar/navbarFixed.html")
+            .then((response) => response.text())
+            .then((html) => {
+                navbarEl.innerHTML = html;
+            })
+    }
+
+    async function hideManagerMenuFromMember(){
+        await fetch('/webApp/is manager', {
+            method: 'post'
+        }).then((response) => response.json()).then(((message) => {
+            if (message["message"] === 'false'){
+                document.getElementById("managerMenu").hidden = "true"
+            }
+        }))
+    }
+
+    window.addEventListener("load", () => {
+        includeNavbar().then(fetchNotificationContentAsync()).then(hideManagerMenuFromMember())
+    })
 </script>
 
-
-
-<div class="col-md-6 offset-md-3 mt-5">
+<div class="col-md-6 offset-md-3 mt-5" id="xml content">
+    <h1 class="fw-light">XML</h1>
+    <p class="lead text-muted">As a manager of this club you can upload/download xml with instances like boat, members and time windows</p>
     <br>
-    <form id="xmlForm" accept-charset="UTF-8" action="/webApp/load xml" method="POST" enctype="multipart/form-data">
+    <form id="xmlUploadForm" accept-charset="UTF-8" action="/webApp/load xml" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="boutHouseDataType">Instance Type</label>
             <select class="form-control" id="BoutHouseDataType" name="BoutHouseDataType" required="required">
@@ -49,12 +70,11 @@
             <input type="file" id="XML Path" name="XML Path" required="required" accept=".xml">
         </div>
         <hr>
-        <button type="button" onclick="submitXmlForm()" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button onclick="replaceContentToDownloadDataBaseForm()" class="btn btn-primary">click here if you want to download database</button>
     </form>
-    <div id="errorMessage"></div>
+    <div id="errorMessage">
+    </div>
 </div>
-
-
-
 </body>
 </html>

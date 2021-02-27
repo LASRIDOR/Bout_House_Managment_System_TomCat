@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Notification page for bout house users">
+    <meta name="author" content="Dor Lasri">
+    <title>Bout House - Manager Notification Page</title>
+    <!-- Bootstrap core CSS -->
+    <link href="/webApp/assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/webApp/assets/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/webApp/utils/all/navbar/navbar.js"></script>    <script src="/webApp/utils/all/instances/utils/formCreation.js"></script>
+    <script src="/webApp/pages/manager/notification/create/createNotification.js"></script>
+    <script src="/webApp/pages/manager/notification/delete/deleteNotification.js"></script>
+    <script src="/webApp/utils/all/instances/utils/existingInstanceCheck.js"></script>
+</head>
+<body id="body">
+    <!--Navigation bar-->
+    <div id="nav-placeholder">
+
+    </div>
+
+    <script>
+        async function includeNavbar() {
+            const navbarEl = document.getElementById("nav-placeholder")
+
+            await fetch("/webApp/utils/all/navbar/navbarFixed.html")
+                .then((response) => response.text())
+                .then((html) => {
+                    navbarEl.innerHTML = html;
+                })
+        }
+
+        async function hideManagerMenuFromMember(){
+            await fetch('/webApp/is manager', {
+                method: 'post'
+            }).then((response) => response.json()).then(((message) => {
+                if (message["message"] === 'false'){
+                    document.getElementById("managerMenu").hidden = "true"
+                }
+            }))
+        }
+
+        window.addEventListener("load", () => {
+            includeNavbar().then(fetchNotificationContentAsync()).then(hideManagerMenuFromMember())
+        })
+    </script>
+
+    <div class="page-content page-container" id="page-content">
+        <div class="row py-lg-5" id="about-dialog-text-area">
+            <div class="col-lg-6 col-md-8 mx-auto" id="buttonArea">
+                <h1 class="fw-light">Notification</h1>
+                <p class="lead text-muted">As a manager of this club you send notification to every member</p>
+
+                <p id="interfaceArea">
+                    <a onclick="replacePageContentToNotificationForm('notify member')" class="btn btn-primary my-2">notify member</a>
+                    <a onclick="addInputForInstanceId()" class="btn btn-primary my-2">delete notification from member</a>
+                    <a onclick="replacePageContentToNotificationForm('notify all members')" class="btn btn-primary my-2">notify all</a>
+                    <a onclick="fetchAllNotificationOfMembersToDelete()" class="btn btn-primary my-2">delete from all</a>
+                </p>
+                <div id="errorMessage"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

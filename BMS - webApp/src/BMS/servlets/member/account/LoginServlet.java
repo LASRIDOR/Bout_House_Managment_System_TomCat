@@ -21,58 +21,58 @@ import java.io.PrintWriter;
 
 @WebServlet(name = "LoginServlet", urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
-    private static final String MEMBER_WEEK_RESERVATION = "/webApp/home.html";
+    private static final String HOME_URL = "/webApp/home.html";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doPost(req, resp);
     }
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         InfoField<String> emailFromParameter = SessionUtils.getEmail(request);
         BoutHouseManager boutHouseManager = ServletUtils.getBoutHouseManager(getServletContext());
 
         if (emailFromParameter != null) {
-            response.sendRedirect(MEMBER_WEEK_RESERVATION);
+            response.sendRedirect(HOME_URL);
+            return;
         }
-        else{
-            try (PrintWriter out = response.getWriter()) {
-                out.println("<html lang=\"en\">");
-                out.println("<head>");
-                out.println("<title>Bout House Management System</title>");
-                out.println("<link rel=\"canonical\" href=\"https://getbootstrap.com/docs/5.0/examples/sign-in/\">");
-                out.println("<link href=\"/webApp/assets/dist/css/bootstrap.min.css\" rel=\"stylesheet\">");
-                out.println("<link href=\"/webApp/assets/dist/css/signin.css\" rel=\"stylesheet\">");
-                out.println("</head>");
-                out.println("<body class=\"text-center\">");
 
-                try {
-                    InfoField<String> emailToConnect = ServletUtils.getInfoField(request, MemberFieldType.EMAIL);
-                    InfoField<String> passwordToConnect = ServletUtils.getInfoField(request, MemberFieldType.PASSWORD);
+        try (PrintWriter out = response.getWriter()) {
+            out.println("<html lang=\"en\">");
+            out.println("<head>");
+            out.println("<title>Bout House Management System</title>");
+            out.println("<link rel=\"canonical\" href=\"https://getbootstrap.com/docs/5.0/examples/sign-in/\">");
+            out.println("<link href=\"/webApp/assets/dist/css/bootstrap.min.css\" rel=\"stylesheet\">");
+            out.println("<link href=\"/webApp/assets/dist/css/signin.css\" rel=\"stylesheet\">");
+            out.println("</head>");
+            out.println("<body class=\"text-center\">");
 
-                    if (emailToConnect == null || emailToConnect.getValue().trim().isEmpty() || passwordToConnect == null || passwordToConnect.getValue().trim().isEmpty()) {
-                        //no username in session and no username in parameter -
-                        writeLoginFormHTMLCode(out, "", "", "Email or Password are missing");
-                    } else {
-                        try {
-                            boutHouseManager.loginToMemberManager(emailFromParameter, emailToConnect, passwordToConnect);
-                            request.getSession(true).setAttribute(MemberFieldType.EMAIL.getNameOfField(), emailToConnect);
-                            response.sendRedirect(MEMBER_WEEK_RESERVATION);
-                        }catch (WrongCredentialException | ExistingException | LoggedAlreadyException LoginException){
-                            writeLoginFormHTMLCode(out, emailToConnect.getValue(),  passwordToConnect.getValue(), LoginException.getMessage());
-                            log(LoginException.getMessage());
-                        }
+            try {
+                InfoField<String> emailToConnect = ServletUtils.getInfoField(request, MemberFieldType.EMAIL);
+                InfoField<String> passwordToConnect = ServletUtils.getInfoField(request, MemberFieldType.PASSWORD);
+
+                if (emailToConnect == null || emailToConnect.getValue().trim().isEmpty() || passwordToConnect == null || passwordToConnect.getValue().trim().isEmpty()) {
+                    //no username in session and no username in parameter -
+                    writeLoginFormHTMLCode(out, "", "", "Email or Password are missing");
+                } else {
+                    try {
+                        boutHouseManager.loginToMemberManager(emailFromParameter, emailToConnect, passwordToConnect);
+                        request.getSession(true).setAttribute(MemberFieldType.EMAIL.getNameOfField(), emailToConnect);
+                        response.sendRedirect(HOME_URL);
+                    } catch (WrongCredentialException | ExistingException | LoggedAlreadyException LoginException) {
+                        writeLoginFormHTMLCode(out, emailToConnect.getValue(), passwordToConnect.getValue(), LoginException.getMessage());
+                        log(LoginException.getMessage());
                     }
-                } catch (FieldTypeIsNotSupportExcpetion | UserInputForInfoFIeldException wrongInputException) {
-                    writeLoginFormHTMLCode(out, "", "", wrongInputException.getMessage());
-                    log(wrongInputException.getMessage());
                 }
-
-
-                out.println("</body>");
-                out.println("</html>");
+            } catch (FieldTypeIsNotSupportExcpetion | UserInputForInfoFIeldException wrongInputException) {
+                writeLoginFormHTMLCode(out, "", "", wrongInputException.getMessage());
+                log(wrongInputException.getMessage());
             }
+
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 

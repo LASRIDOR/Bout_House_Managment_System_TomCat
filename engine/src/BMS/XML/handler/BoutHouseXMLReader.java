@@ -9,6 +9,7 @@ import BMS.boutHouse.form.field.type.Informable;
 import BMS.managment.utils.exceptions.OnlyManagerAccessException;
 import BMS.xml.exceptions.ExtensionException;
 import BMS.xml.validator.Validator;
+import com.sun.jndi.toolkit.ctx.StringHeadTail;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -21,26 +22,23 @@ import java.util.Map;
 
 public abstract class BoutHouseXMLReader {
     final static String JAXB_XML_PACKAGE_NAME = "BMS.xml.schema.generated";
-    private static final String DATA_BASE_LOCATION = System.getProperty("user.dir") + "\\BoutHouseProjectDataBase";
+    private static final String DATA_BASE_LOCATION = System.getProperty("user.dir") + "/BoutHouseProjectDataBase";
 
     public BoutHouseXMLReader(){
         File file = new File(DATA_BASE_LOCATION);
         //Creating the directory
-        boolean bool = file.mkdir();
-        if(bool){
-            System.out.println(DATA_BASE_LOCATION + "Directory created successfully");
-        }else{
-            System.out.println(DATA_BASE_LOCATION + "Sorry couldn't create specified directory");
-        }
+        file.mkdir();
     }
 
-    public static String getDataBaseLocation() {
+    public static String getMasterDataBaseLocation() {
         return DATA_BASE_LOCATION;
     }
 
     public static String getMasterJaxbXmlPackageName(){
         return JAXB_XML_PACKAGE_NAME;
     }
+
+    public abstract String getDataBaseLocation();
 
     public abstract String getJaxbXmlPackageName();
 

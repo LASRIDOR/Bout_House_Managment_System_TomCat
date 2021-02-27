@@ -31,7 +31,13 @@ public class DeleteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json");
-        InfoField<String> emailFromParameter = SessionUtils.getEmail(req);
+        InfoField<String> emailOfLoggedMember = SessionUtils.getEmail(req);
+
+        if (emailOfLoggedMember == null) {
+            resp.sendRedirect(SIGN_UP_URL);
+            return;
+        }
+
         BoutHouseManager boutHouseManager = ServletUtils.getBoutHouseManager(getServletContext());
         JSONObject fields = new JSONObject();
         PrintWriter out = resp.getWriter();
@@ -40,7 +46,8 @@ public class DeleteServlet extends HttpServlet {
             BoutHouseDataType boutHouseDataType = ServletUtils.getTypeOfManager(req);
             InfoField<String> idOfInstance = ServletUtils.getIdOfInstance(req, boutHouseDataType);
 
-            boutHouseManager.deleteInstance(boutHouseDataType, emailFromParameter, idOfInstance);
+            log(emailOfLoggedMember.getValue() + " Deleted " + boutHouseDataType.getNameOfManager());
+            boutHouseManager.deleteInstance(boutHouseDataType, emailOfLoggedMember, idOfInstance);
             fields.put("message", "Instance Was Deleted Successfully");
              out.print(fields);
             out.flush();

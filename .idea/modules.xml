@@ -4,7 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/BMS - webApp/BMS - webApp.iml" filepath="$PROJECT_DIR$/BMS - webApp/BMS - webApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/engine/engine.iml" filepath="$PROJECT_DIR$/engine/engine.iml" />
+      <module fileurl="file://$PROJECT_DIR$/notificationBMSWebAppEngine/notificationBMSWebAppEngine.iml" filepath="$PROJECT_DIR$/notificationBMSWebAppEngine/notificationBMSWebAppEngine.iml" />
       <module fileurl="file://$PROJECT_DIR$/shared/shared.iml" filepath="$PROJECT_DIR$/shared/shared.iml" />
+      <module fileurl="file://$PROJECT_DIR$/webAppChatLogicEngine/webAppChatLogicEngine.iml" filepath="$PROJECT_DIR$/webAppChatLogicEngine/webAppChatLogicEngine.iml" />
     </modules>
   </component>
 </project>

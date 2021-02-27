@@ -3,7 +3,7 @@ package BMS.server;
 import BMS.boutHouse.form.exceptions.WrongTypeException;
 
 public enum BoutHouseDataType {
-    BOATS("Storage"),
+    BOATS("Boat"),
     MEMBERS("Member"),
     TIME_WINDOW("Time Window"),
     RESERVATION("Reservation");

@@ -16,9 +16,10 @@ import java.io.IOException;
 
 @WebServlet(name = "logout", urlPatterns = "/logout")
 public class LogoutServlet extends HttpServlet {
+    private static final String SIGN_UP_URL = "/webApp/login";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        InfoField<String> usernameFromSession = null;
-        usernameFromSession = SessionUtils.getEmail(request);
+        InfoField<String> usernameFromSession = SessionUtils.getEmail(request);
         BoutHouseManager boutHouseManager = ServletUtils.getBoutHouseManager(getServletContext());
 
         if (usernameFromSession != null) {
@@ -26,15 +27,8 @@ public class LogoutServlet extends HttpServlet {
             boutHouseManager.logoutFromMemberManager(usernameFromSession);
             SessionUtils.clearSession(request);
 
-    /*
-        when sending redirect, tomcat has a shitty logic how to calculate the URL given, weather its relative or not
-        you can read about it here:
-        https://tomcat.apache.org/tomcat-5.5-doc/servletapi/javax/servlet/http/HttpServletResponse.html#sendRedirect(java.lang.String)
-        the best way (IMO) is to fetch the context path dynamically and build the redirection from it and on
-     */
-            response.sendRedirect("login");
         }
-
+        response.sendRedirect(SIGN_UP_URL);
     }
 
 

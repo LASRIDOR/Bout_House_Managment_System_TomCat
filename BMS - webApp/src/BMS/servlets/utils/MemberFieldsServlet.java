@@ -39,7 +39,7 @@ public class MemberFieldsServlet extends HttpServlet {
             fields.put(MemberFieldType.EMAIL.getNameOfField(), allFieldsOfInstance.get(MemberFieldType.EMAIL).getValue());
             fields.put(MemberFieldType.PASSWORD.getNameOfField(), allFieldsOfInstance.get(MemberFieldType.PASSWORD).getValue());
             fields.put(MemberFieldType.USERNAME.getNameOfField(), allFieldsOfInstance.get(MemberFieldType.USERNAME).getValue());
-            fields.put(MemberFieldType.PHONE_NUMBER.getNameOfField(), allFieldsOfInstance.get(MemberFieldType.PHONE_NUMBER).getValue());
+            fields.put(MemberFieldType.PHONE_NUMBER.getNameOfField(),  (allFieldsOfInstance.get(MemberFieldType.PHONE_NUMBER) != null ? allFieldsOfInstance.get(MemberFieldType.PHONE_NUMBER).getValue() : ""));
 
             out.println(fields);
             out.flush();

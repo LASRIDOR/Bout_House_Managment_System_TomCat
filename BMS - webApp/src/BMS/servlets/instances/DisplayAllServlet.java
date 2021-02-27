@@ -26,15 +26,21 @@ public class DisplayAllServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json");
-        InfoField<String> emailOfUser = SessionUtils.getEmail(req);
+        InfoField<String> emailOfLoggedMember = SessionUtils.getEmail(req);
+
+        if (emailOfLoggedMember == null) {
+            resp.sendRedirect(SIGN_UP_URL);
+            return;
+        }
         BoutHouseManager boutHouseManager = ServletUtils.getBoutHouseManager(getServletContext());
         JSONObject fields = new JSONObject();
         PrintWriter out = resp.getWriter();
 
         try {
             BoutHouseDataType boutHouseDataType = ServletUtils.getTypeOfManager(req);
-            String allInstances = boutHouseManager.getAllInstancesOfBoutHouseType(boutHouseDataType, emailOfUser);
+            String allInstances = boutHouseManager.getAllInstancesOfBoutHouseType(boutHouseDataType, emailOfLoggedMember);
 
+            log(emailOfLoggedMember.getValue() + " Displayed " + boutHouseDataType.getNameOfManager());
             fields.put("message", allInstances);
             out.print(fields);
             out.flush();

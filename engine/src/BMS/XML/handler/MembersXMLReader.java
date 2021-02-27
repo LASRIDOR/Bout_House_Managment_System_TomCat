@@ -31,12 +31,15 @@ import java.util.*;
 
 public class MembersXMLReader extends BoutHouseXMLReader {
     private static final String JAXB_XML_PACKAGE_NAME_MEMBERS = getMasterJaxbXmlPackageName() + ".members";
-    private static final String MEMBER_DATA_BASE_LOCATION = getDataBaseLocation() + "\\" + BoutHouseDataType.MEMBERS.getNameOfManager() + " Records.xml";
+    private static final String MEMBER_DATA_BASE_LOCATION = getMasterDataBaseLocation() + "/" + BoutHouseDataType.MEMBERS.getNameOfManager() + " Records.xml";
 
     @Override
     public String getJaxbXmlPackageName() {
         return JAXB_XML_PACKAGE_NAME_MEMBERS;
     }
+
+    @Override
+    public String getDataBaseLocation(){return MEMBER_DATA_BASE_LOCATION; }
 
     public ArrayList<ArrayList<InfoField>> fromXMLFileToListOfInstancesArgs(Path path) throws JAXBException, FileNotFoundException, ExtensionException {
         InputStream inputStream = getInputStreamFromPath(path);

@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact name="notificationBMSWebAppEngine:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/notificationBMSWebAppEngine_jar</output-path>
+    <root id="root">
+      <element id="archive" name="notificationBMSWebAppEngine.jar">
+        <element id="module-output" name="notificationBMSWebAppEngine" />
+        <element id="module-output" name="shared" />
+      </element>
+    </root>
+  </artifact>
+</component>

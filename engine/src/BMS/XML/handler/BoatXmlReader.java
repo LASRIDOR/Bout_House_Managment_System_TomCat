@@ -22,7 +22,7 @@ import java.util.*;
 
 public class BoatXmlReader extends BoutHouseXMLReader {
     private static final String JAXB_XML_PACKAGE_NAME_BOATS = getMasterJaxbXmlPackageName() + ".boats";
-    private static final String BOAT_DATA_BASE_LOCATION = getDataBaseLocation() + "/" + BoutHouseDataType.BOATS.getNameOfManager() + " Records.xml";
+    private static final String BOAT_DATA_BASE_LOCATION = getMasterDataBaseLocation() + "/" + BoutHouseDataType.BOATS.getNameOfManager() + " Records.xml";
 
     @Override
     public String getJaxbXmlPackageName() {
@@ -30,12 +30,16 @@ public class BoatXmlReader extends BoutHouseXMLReader {
     }
 
     @Override
+    public String getDataBaseLocation(){return BOAT_DATA_BASE_LOCATION; }
+
+    @Override
     public ArrayList<ArrayList<InfoField>> fromXMLFileToListOfInstancesArgs(Path path) throws JAXBException, FileNotFoundException, ExtensionException {
         InputStream inputStream = getInputStreamFromPath(path);
         Boats boats = (Boats) deserializeFrom(inputStream);
         ArrayList<ArrayList<InfoField>> boatsforms = fromBoatsJaxbToArrayBoatInstanceArgs(boats);
 
-        return boatsforms;    }
+        return boatsforms;
+    }
 
     private ArrayList<ArrayList<InfoField>> fromBoatsJaxbToArrayBoatInstanceArgs(Boats boats) {
         List<Boat> listOfBoats = boats.getBoat();

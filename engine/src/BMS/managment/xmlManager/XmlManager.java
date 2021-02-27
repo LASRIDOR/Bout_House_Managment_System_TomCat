@@ -72,4 +72,9 @@ public class XmlManager {
         BoutHouseXMLReader xmlManager = xmlManagers.get(managerType);
         xmlManager.resetDatabase();
     }
+
+    public String getDataBaseLocation(BoutHouseDataType managerType){
+        BoutHouseXMLReader xmlManager = xmlManagers.get(managerType);
+        return xmlManager.getDataBaseLocation();
+    }
 }

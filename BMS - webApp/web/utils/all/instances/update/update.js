@@ -15,14 +15,14 @@ async function fetchUpdateInstance(boutHouseDataType) {
     const loggedMemberDetails = await response.json()
 
     if (Object.keys(loggedMemberDetails)[0] === "ERROR"){
-        publishErrorMessage(loggedMemberDetails["ERROR"])
+        publishError(loggedMemberDetails["ERROR"])
     }
     else{
         putOnlyFormInBody(loggedMemberDetails, boutHouseDataType, "update")
     }
 }
 
-function publishErrorMessage(message) {
+function publishError(message) {
     const errorArea = document.getElementById('errorMessage')
 
     errorArea.innerText = message

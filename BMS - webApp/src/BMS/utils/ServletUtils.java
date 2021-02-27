@@ -10,6 +10,9 @@ import BMS.constants.Constants;
 import BMS.managment.CEO.BoutHouseManager;
 import BMS.server.BoutHouseDataType;
 import BMS.xml.xmlManager.XmlManager;
+import chat.ChatManager;
+import notification.NotificationManagerForAllMembers;
+import notification.NotificationManagerForMember;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +22,18 @@ import static BMS.constants.Constants.BOUT_HOUSE_DATA_TYPE;
 public class ServletUtils {
     public static BoutHouseManager getBoutHouseManager(ServletContext servletContext) {
         return (BoutHouseManager) servletContext.getAttribute(Constants.BOUT_HOUSE_MANAGER);
+    }
+
+    public static ChatManager getChatManager(ServletContext servletContext) {
+        return (ChatManager) servletContext.getAttribute(Constants.CHAT_MANAGER_ATTRIBUTE_NAME);
+    }
+
+    public static NotificationManagerForAllMembers getAllMemberNotificationManager(ServletContext servletContext) {
+        return (NotificationManagerForAllMembers) servletContext.getAttribute(Constants.ALL_MEMBERS_NOTIFICATION_ATTRIBUTE_NAME);
+    }
+
+    public static NotificationManagerForMember getPerMemberNotificationManager(ServletContext servletContext) {
+        return (NotificationManagerForMember) servletContext.getAttribute(Constants.MEMBER_NOTIFICATION_ATTRIBUTE_NAME);
     }
 
     public static InfoField getInfoField(HttpServletRequest request, Informable typeOfInfoField) throws FieldTypeIsNotSupportExcpetion, UserInputForInfoFIeldException {
@@ -32,7 +47,7 @@ public class ServletUtils {
 
     public static InfoField getIdOfInstance(HttpServletRequest request, BoutHouseDataType instanceType) throws UserInputForInfoFIeldException, FieldTypeIsNotSupportExcpetion {
         Informable typeOfId = getTypeOfIdInstance(instanceType);
-        String inputValue = request.getParameter("instanceId");
+        String inputValue = request.getParameter(Constants.INSTANCE_ID_ATTRIBUTE_NAME);
         return inputValue != null ? InfoFieldMaker.createInfoField(inputValue, typeOfId) : null;
     }
 
@@ -99,5 +114,17 @@ public class ServletUtils {
 
     public static InfoField<String> getInfoFieldXmlPath(String xmlPath) throws FieldTypeIsNotSupportExcpetion, UserInputForInfoFIeldException {
         return InfoFieldMaker.createInfoField(xmlPath, XmlFieldType.XML_PATH);
+    }
+
+    public static int getIntParameter(HttpServletRequest req, String parameterName) {
+        String value = req.getParameter(parameterName);
+        if (value != null) {
+            try {
+                return Integer.parseInt(value);
+            } catch (NumberFormatException numberFormatException) {
+                System.out.println("Error parsing parameter " + parameterName + ". Expected a number but value was " + value);
+            }
+        }
+        return Constants.INT_PARAMETER_ERROR;
     }
 }

@@ -16,7 +16,6 @@
 
 <link href="/webApp/utils/all/navbar/navbar-top-fixed.css" rel="stylesheet">
 
-
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
 
   <div class="container-fluid">
@@ -26,7 +25,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav me-auto mb-2 mb-md-0">
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown" id="managerMenu">
           <a class="nav-link dropdown-toggle" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">Member</a>
           <ul class="dropdown-menu" aria-labelledby="dropdown01">
             <li><a class="dropdown-item" href="/webApp/Member/account/account.html">Account</a></li>
@@ -41,9 +40,29 @@
             <li><a class="dropdown-item" href="#">Time Window</a></li>
             <li><a class="dropdown-item" href="#">Boat</a></li>
             <li><a class="dropdown-item" href="/webApp/Manager/xml/xml.html">Xml</a></li>
+            <li><a class="dropdown-item" href="/webApp/Manager/notification/notification.html">Notification</a></li>
           </ul>
         </li>
 
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">Messages<span id="newNotification"></span></a>
+          <div class="dropdown-menu notification" aria-labelledby="navbarDropdown">
+            <div class="card">
+              <div class="card-header">All Members Inbox<span><a class=""><i class="fas fa-edit"></i></a></span></div>
+              <div class="card-body">
+                <ul class="list-unstyled" id="AllMembersNotificationArea">
+                </ul>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">Your Inbox<span><a class=""><i class="fas fa-edit"></i></a></span></div>
+              <div class="card-body">
+                <ul class="list-unstyled" id="perMemberNotificationArea">
+                </ul>
+              </div>
+            </div>
+          </div>
+        </li>
       </ul>
       <form class="d-flex" action="/webApp/logout" method="post">
         <button name="logout" class="btn btn-outline-success" type="submit">logout</button>
@@ -52,5 +71,5 @@
   </div>
 </nav>
 
-<script src="/webApp/assets/dist/js/bootstrap.bundle.min.js"></script>
+
 

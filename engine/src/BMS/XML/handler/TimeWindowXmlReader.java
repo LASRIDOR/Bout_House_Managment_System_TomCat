@@ -23,12 +23,15 @@ import java.util.*;
 
 public class TimeWindowXmlReader extends BoutHouseXMLReader {
     private static final String JAXB_XML_PACKAGE_NAME_ACTIVITIES = getMasterJaxbXmlPackageName() + ".activities";
-    private static final String TIME_WINDOW_DATA_BASE_LOCATION = getDataBaseLocation() + "/" + BoutHouseDataType.TIME_WINDOW.getNameOfManager() + " Records.xml";
+    private static final String TIME_WINDOW_DATA_BASE_LOCATION = getMasterDataBaseLocation() + "/" + BoutHouseDataType.TIME_WINDOW.getNameOfManager() + " Records.xml";
 
     @Override
     public String getJaxbXmlPackageName() {
         return JAXB_XML_PACKAGE_NAME_ACTIVITIES;
     }
+
+    @Override
+    public String getDataBaseLocation(){return TIME_WINDOW_DATA_BASE_LOCATION; }
 
     @Override
     public ArrayList<ArrayList<InfoField>> fromXMLFileToListOfInstancesArgs(Path path) throws JAXBException, FileNotFoundException, ExtensionException {

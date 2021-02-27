@@ -42,47 +42,52 @@ import java.util.stream.Collectors;
 @MultipartConfig(maxFileSize = 169999999)
 public class XmlReaderServlet extends HttpServlet {
     private static final String SIGN_UP_URL = "/webApp/login";
+    private static final String MANAGER_XML_URL = "/webApp/Manager/xml/xml.html";
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("application/json");
-        InfoField<String> emailFromParameter = SessionUtils.getEmail(req);
+        //resp.setContentType("application/json");
+        InfoField<String> emailOfLoggedMember = SessionUtils.getEmail(req);
+
+        if (emailOfLoggedMember == null) {
+            resp.sendRedirect(SIGN_UP_URL);
+            return;
+        }
+
         BoutHouseManager boutHouseManager = ServletUtils.getBoutHouseManager(getServletContext());
         XmlManager xmlManager = ServletUtils.getXmlManager(getServletContext());
         JSONObject fields = new JSONObject();
-        PrintWriter out = resp.getWriter();
+        //PrintWriter out = resp.getWriter();
         String uploadFolderPath = System.getProperty("user.dir") + File.separator + Constants.XML_LOAD_TEMP_FOLDER;
+        File uploadDir = new File(uploadFolderPath);
+        if (!uploadDir.exists()) uploadDir.mkdir();
+
+        Part xmlPart = req.getPart(XmlFieldType.XML_PATH.getNameOfField());
+        String uploadFilePath = uploadFolderPath + File.separator + getFileName(xmlPart);
+        xmlPart.write(uploadFilePath);
 
         try {
-            File uploadDir = new File(uploadFolderPath);
-            if (!uploadDir.exists()) uploadDir.mkdir();
-
-            Part xmlPart = req.getPart(XmlFieldType.XML_PATH.getNameOfField());
-            String uploadFilePath = uploadFolderPath + File.separator + getFileName(xmlPart);
-            xmlPart.write(uploadFilePath);
-
             BoutHouseDataType boutHouseDataType = ServletUtils.getTypeOfManager(req);
             InfoField<String> xmlFieldPath = ServletUtils.getInfoFieldXmlPath(uploadFilePath);
             ArrayList<ArrayList<InfoField>> xmlInstancesArgs = xmlManager.loadArgsFromXml(boutHouseDataType, xmlFieldPath);
 
-            if (!req.getParameter("erase").equals("no")) {
-                fields.put("message", boutHouseManager.createXmlInstances(boutHouseDataType, emailFromParameter, xmlInstancesArgs));
+            if (req.getParameter("erase").equals("no")) {
+                fields.put("message", boutHouseManager.createXmlInstances(boutHouseDataType, emailOfLoggedMember, xmlInstancesArgs));
             }
             else {
-                fields.put("message", boutHouseManager.createAndEraseXmlInstances(boutHouseDataType, emailFromParameter, xmlInstancesArgs));
+                fields.put("message", boutHouseManager.createAndEraseXmlInstances(boutHouseDataType, emailOfLoggedMember, xmlInstancesArgs));
             }
 
-            new File(uploadFilePath).delete();
-            new File(uploadFolderPath).delete();
-            out.print(fields);
-            out.flush();
+            log(emailOfLoggedMember.getValue() + " uploaded " + boutHouseDataType.getNameOfManager() + "XML");
+            //out.print(fields);
+            //out.flush();
         } catch (OnlyManagerAccessException | NeedToLoginException e) {
             resp.sendRedirect(SIGN_UP_URL);
         } catch (WrongTypeException | UserInputForInfoFIeldException | FieldTypeIsNotSupportExcpetion | JAXBException | ExtensionException e) {
             try {
                 fields.put("message", "Error While Loading XML: " + e.getMessage());
-                out.print(fields);
-                out.flush();
+                //out.print(fields);
+                //out.flush();
             } catch (JSONException jsonException) {
                 System.out.printf("JSON Error: missed field (%s)%n", e.getMessage());
             }
@@ -90,19 +95,11 @@ public class XmlReaderServlet extends HttpServlet {
             System.out.printf("JSON Error: missed field (%s)%n", e.getMessage());
         }
         finally {
-            //new File(uploadFilePath).delete();
+            new File(uploadFilePath).delete();
             new File(uploadFolderPath).delete();
         }
-    }
 
-    private String getSubmittedFileName(Part part) {
-        for (String cd : part.getHeader("content-disposition").split(";")) {
-            if (cd.trim().startsWith("filename")) {
-                String fileName = cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
-                return fileName.substring(fileName.lastIndexOf('/') + 1).substring(fileName.lastIndexOf('\\') + 1); // MSIE fix.
-            }
-        }
-        return null;
+        resp.sendRedirect(MANAGER_XML_URL);
     }
 
     private String getFileName(Part part) {
@@ -111,6 +108,6 @@ public class XmlReaderServlet extends HttpServlet {
                 return content.substring(content.indexOf("=") + 2, content.length() - 1);
         }
 
-        return "DEFAULT_FILENAME";
+        return Constants.DEFAULT_FILENAME;
     }
 }

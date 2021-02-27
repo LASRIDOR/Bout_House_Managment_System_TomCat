@@ -8,11 +8,9 @@ const JOIN_KEY = "Date Of Join (Pattern: YYYY-MM-DDTHH:MM:SS)"
 const MEMBER_FIELDS_URL = "/webApp/get member fields"
 
 async function fetchMemberUpdateDetails() {
-    let params = new URLSearchParams()
 
     const request = new Request(MEMBER_FIELDS_URL, {
         method: 'post',
-        body:params
     })
 
     const response = await fetch(request)

@@ -154,6 +154,20 @@ public class BoutHouseManager {
         return instanceForm.getAllFields();
     }
 
+    public boolean isInstanceExist(BoutHouseDataType typeOfManager, InfoField<String> idOfInstance){
+        boolean isExist;
+        SystemManager systemManager = boutHouseManagers.get(typeOfManager);
+
+        try {
+            systemManager.checkInstanceExistence(idOfInstance, false);
+            isExist = true;
+        } catch (ExistingException e) {
+            isExist = false;
+        }
+
+        return isExist;
+    }
+
     public String createXmlInstances(BoutHouseDataType typeOfManager, InfoField<String> emailOfCreator, ArrayList<ArrayList<InfoField>> instancesArgs) throws ExtensionException, JAXBException, FileNotFoundException, WrongTypeException, OnlyManagerAccessException, NeedToLoginException {
         StringBuilder loadingErrors = new StringBuilder("Xml Was Loaded Successfully (in case of errors list of errors will be attached)" + System.lineSeparator());
 
@@ -220,6 +234,10 @@ public class BoutHouseManager {
         SystemManager systemManager = boutHouseManagers.get(typeOfManager);
 
         xmlManager.saveInstancesToXml(typeOfManager, emailOfSaver, systemManager.getAllInstances().values());
+    }
+
+    public String getDatabaseLocation(BoutHouseDataType typeOfManager){
+        return xmlManager.getDataBaseLocation(typeOfManager);
     }
 
     public boolean isTimeWindowListEmpty() {

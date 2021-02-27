@@ -36,7 +36,13 @@ public class CreateServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json");
-        InfoField<String> emailFromParameter = SessionUtils.getEmail(req);
+        InfoField<String> emailOfLoggedMember = SessionUtils.getEmail(req);
+
+        if (emailOfLoggedMember == null) {
+            resp.sendRedirect(SIGN_UP_URL);
+            return;
+        }
+
         BoutHouseManager boutHouseManager = ServletUtils.getBoutHouseManager(getServletContext());
         JSONObject fields = new JSONObject();
         PrintWriter out = resp.getWriter();
@@ -57,7 +63,8 @@ public class CreateServlet extends HttpServlet {
                 }
             }
 
-            boutHouseManager.createNewInstance(boutHouseDataType, emailFromParameter, allNewInstance);
+            log(emailOfLoggedMember.getValue() + " Created new " + boutHouseDataType.getNameOfManager());
+            boutHouseManager.createNewInstance(boutHouseDataType, emailOfLoggedMember, allNewInstance);
             fields.put("message", "Instance was created successfully");
             out.print(fields);
             out.flush();

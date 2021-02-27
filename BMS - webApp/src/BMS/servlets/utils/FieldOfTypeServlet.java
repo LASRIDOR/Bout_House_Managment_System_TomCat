@@ -20,10 +20,9 @@ public class FieldOfTypeServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("application/json");
         JSONObject fields = new JSONObject();
-        BoutHouseDataType boutHouseDataType = null;
 
         try (PrintWriter out = response.getWriter()){
-            boutHouseDataType = ServletUtils.getTypeOfManager(request);
+            BoutHouseDataType boutHouseDataType = ServletUtils.getTypeOfManager(request);
             Informable[] allFields = ServletUtils.getTypeOfField(boutHouseDataType);
 
             for (Informable field : allFields) {

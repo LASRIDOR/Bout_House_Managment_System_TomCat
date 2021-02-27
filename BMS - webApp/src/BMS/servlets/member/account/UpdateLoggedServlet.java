@@ -31,17 +31,23 @@ public class UpdateLoggedServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        InfoField<String> emailFromParameter = SessionUtils.getEmail(req);
+        InfoField<String> emailOfLoggedMember = SessionUtils.getEmail(req);
+
+        if (emailOfLoggedMember == null) {
+            resp.sendRedirect(SIGN_UP_URL);
+            return;
+        }
+
         BoutHouseManager boutHouseManager = ServletUtils.getBoutHouseManager(getServletContext());
         StringBuilder errors = new StringBuilder();
         resp.setContentType("application/json");
 
         try (PrintWriter out = resp.getWriter()){
             JSONObject message = new JSONObject();
-            errors.append(updateInBoutHouse(req, boutHouseManager, emailFromParameter, MemberFieldType.EMAIL)).append(System.lineSeparator());
-            errors.append(updateInBoutHouse(req, boutHouseManager, emailFromParameter, MemberFieldType.PASSWORD)).append(System.lineSeparator());
-            errors.append(updateInBoutHouse(req, boutHouseManager, emailFromParameter, MemberFieldType.PHONE_NUMBER)).append(System.lineSeparator());
-            errors.append(updateInBoutHouse(req, boutHouseManager, emailFromParameter, MemberFieldType.USERNAME)).append(System.lineSeparator());
+            errors.append(updateInBoutHouse(req, boutHouseManager, emailOfLoggedMember, MemberFieldType.EMAIL)).append(System.lineSeparator());
+            errors.append(updateInBoutHouse(req, boutHouseManager, emailOfLoggedMember, MemberFieldType.PASSWORD)).append(System.lineSeparator());
+            errors.append(updateInBoutHouse(req, boutHouseManager, emailOfLoggedMember, MemberFieldType.PHONE_NUMBER)).append(System.lineSeparator());
+            errors.append(updateInBoutHouse(req, boutHouseManager, emailOfLoggedMember, MemberFieldType.USERNAME)).append(System.lineSeparator());
             message.put("message", errors.toString());
             out.println(message);
         } catch (NeedToLoginException loginException) {

@@ -12,7 +12,8 @@
     <script src="/webApp/utils/all/instances/idOfInstance.js"></script>
     <script src="/webApp/utils/all/instances/fromCreation.js"></script>
     <link href="/webApp/assets/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="/webApp/assets/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/webApp/utils/all/navbar/navbar.js"></script>
 
 </head>
 <body id="reservationBody">
@@ -22,11 +23,30 @@
     </div>
 
     <script>
-        $(function(){
-            $("#nav-placeholder").load("/webApp/utils/all/navbar/navbarFixed.html");
-        });
-    </script>
+        async function includeNavbar() {
+            const navbarEl = document.getElementById("nav-placeholder")
 
+            await fetch("/webApp/utils/all/navbar/navbarFixed.html")
+                .then((response) => response.text())
+                .then((html) => {
+                    navbarEl.innerHTML = html;
+                })
+        }
+
+        async function hideManagerMenuFromMember(){
+            await fetch('/webApp/is manager', {
+                method: 'post'
+            }).then((response) => response.json()).then(((message) => {
+                if (message["message"] === 'false'){
+                    document.getElementById("managerMenu").hidden = "true"
+                }
+            }))
+        }
+
+        window.addEventListener("load", () => {
+            includeNavbar().then(fetchNotificationContentAsync()).then(hideManagerMenuFromMember())
+        })
+    </script>
 <div class="row py-lg-5" id="about-dialog-text-area">
     <div class="col-lg-6 col-md-8 mx-auto" id="buttonArea">
         <h1 class="fw-light">Reservation</h1>

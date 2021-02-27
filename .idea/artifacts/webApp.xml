@@ -2,20 +2,24 @@
   <artifact type="exploded-war" name="webApp">
     <output-path>$PROJECT_DIR$/out/artifacts/webApp</output-path>
     <root id="root">
-      <element id="javaee-facet-resources" facet="BMS - webApp/web/Web" />
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="BMS - webApp" />
-          <element id="module-output" name="engine" />
           <element id="module-output" name="shared" />
+          <element id="module-output" name="engine" />
+          <element id="module-output" name="webAppChatLogicEngine" />
+          <element id="module-output" name="notificationBMSWebAppEngine" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="java-json" />
-          <element id="library" level="project" name="Java EE 6-Java EE 6" />
+          <element id="library" level="project" name="gson-2.8.6" />
           <element id="artifact" artifact-name="engine:jar" />
+          <element id="artifact" artifact-name="notificationBMSWebAppEngine:jar" />
           <element id="artifact" artifact-name="shared:jar" />
+          <element id="artifact" artifact-name="webAppChatLogicEngine:jar" />
         </element>
       </element>
+      <element id="javaee-facet-resources" facet="BMS - webApp/web/Web" />
     </root>
   </artifact>
 </component>

@@ -1,60 +1,80 @@
-window.addEventListener("load", () => {
-    const navbarDiv = document.getElementById("nav-placeholder")
+let memberVersion = 0;
+let allMembersVersion = 0;
+const notificationRefreshRate = 1000; //milliseconds
+const NOTIFICATION_LIST_URL = "/webApp/notification";
 
-    navbarDiv.innerHTML = "<style>\n" +
-        "  .bd-placeholder-img {\n" +
-        "    font-size: 1.125rem;\n" +
-        "    text-anchor: middle;\n" +
-        "    -webkit-user-select: none;\n" +
-        "    -moz-user-select: none;\n" +
-        "    user-select: none;\n" +
-        "  }\n" +
-        "\n" +
-        "  @media (min-width: 768px) {\n" +
-        "    .bd-placeholder-img-lg {\n" +
-        "      font-size: 3.5rem;\n" +
-        "    }\n" +
-        "  }\n" +
-        "</style>\n" +
-        "\n" +
-        "<link href=\"/webApp/utils/all/navbar/navbar-top-fixed.css\" rel=\"stylesheet\">\n \n" +
-        "\n" +
-        "\n" +
-        "<nav class=\"navbar navbar-expand-md navbar-dark fixed-top bg-dark\">\n" +
-        "\n" +
-        "  <div class=\"container-fluid\">\n" +
-        "    <img class=\"mb-4\" src=\"/webApp/assets/brand/boutLogo.png\" width=\"105\" height=\"70\" href=\"/webApp/home.html\">\n" +
-        "    <button class=\"navbar-toggler\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#navbarCollapse\" aria-controls=\"navbarCollapse\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n" +
-        "      <span class=\"navbar-toggler-icon\"></span>\n" +
-        "    </button>\n" +
-        "    <div class=\"collapse navbar-collapse\" id=\"navbarCollapse\">\n" +
-        "      <ul class=\"navbar-nav me-auto mb-2 mb-md-0\">\n" +
-        "        <li class=\"nav-item dropdown\">\n" +
-        "          <a class=\"nav-link dropdown-toggle\" id=\"dropdown01\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">Member</a>\n" +
-        "          <ul class=\"dropdown-menu\" aria-labelledby=\"dropdown01\">\n" +
-        "            <li><a class=\"dropdown-item\" href=\"/webApp/Member/account/account.html\">Account</a></li>\n" +
-        "            <li><a class=\"dropdown-item\" href=\"/webApp/Member/reservation/reservation.html\">Reservation</a></li>\n" +
-        "          </ul>\n" +
-        "        </li>\n" +
-        "        <li class=\"nav-item dropdown\">\n" +
-        "          <a class=\"nav-link dropdown-toggle\" id=\"dropdown02\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">Manager</a>\n" +
-        "          <ul class=\"dropdown-menu\" aria-labelledby=\"dropdown02\">\n" +
-        "            <li><a class=\"dropdown-item\" href=\"#\">Account</a></li>\n" +
-        "            <li><a class=\"dropdown-item\" href=\"#\">Reservation</a></li>\n" +
-        "            <li><a class=\"dropdown-item\" href=\"#\">Time Window</a></li>\n" +
-        "            <li><a class=\"dropdown-item\" href=\"#\">Boat</a></li>\n" +
-        "            <li><a class=\"dropdown-item\" href=\"#\">Xml</a></li>\n" +
-        "          </ul>\n" +
-        "        </li>\n" +
-        "\n" +
-        "      </ul>\n" +
-        "      <form class=\"d-flex\" action=\"logout\" method=\"post\">\n" +
-        "        <button name=\"logout\" class=\"btn btn-outline-success\" type=\"submit\">logout</button>\n" +
-        "      </form>\n" +
-        "    </div>\n" +
-        "  </div>\n" +
-        "</nav>\n" +
-        "\n" +
-        "<script src=\"/webApp/assets/dist/js/bootstrap.bundle.min.js\"></script>\n" +
-        "\n";
+async function fetchNotificationContentAsync() {
+    try {
+        const numberOfNewNotificationEl = document.getElementById("newNotification")
+
+        if (numberOfNewNotificationEl !== null) {
+            const data = new URLSearchParams();
+            data.append('memberVersion', memberVersion);
+            data.append('allMembersVersion', allMembersVersion);
+
+            const response = await fetch(NOTIFICATION_LIST_URL, {
+                method: 'post',
+                body: data
+            });
+
+            const notificationData = await response.json();
+
+            console.log("Server all members notification version: " + notificationData.allMembersVersion + ", Client all members notification version: " + allMembersVersion);
+            console.log("Server member notification version: " + notificationData.memberVersion + ", Client member version: " + memberVersion);
+            if (notificationData.allMembersVersion !== allMembersVersion || notificationData.memberVersion !== memberVersion) {
+                allMembersVersion = notificationData.allMembersVersion;
+                memberVersion = notificationData.memberVersion;
+                numberOfNewNotificationEl.innerText = " (" + (allMembersVersion + memberVersion) + ") "
+                appendToNotificationArea(notificationData.allMembersEntries, "AllMembersNotificationArea");
+                appendToNotificationArea(notificationData.memberEntries, "perMemberNotificationArea");
+            }
+        }
+    } finally {
+        triggerTimeoutRefreshNotification();
+    }
+}
+
+function triggerTimeoutRefreshNotification() {
+    setTimeout(fetchNotificationContentAsync, notificationRefreshRate);
+}
+
+function appendToNotificationArea(entries = [], idOfNotificationArea) {
+    entries.forEach((entry) => {appendNotification(entry, idOfNotificationArea)});
+}
+
+function appendNotification(notification, idOfNotificationArea) {
+    const notificationAreaEl = document.getElementById(idOfNotificationArea);
+    const hr = document.createElement('hr');
+
+    notificationAreaEl.append(createNotificationElement(notification));
+    notificationAreaEl.appendChild(hr)
+}
+
+function createNotificationElement(notification){
+    const element = document.createElement('div');
+
+    element.classList = 'media-body';
+    element.appendChild(createHeaderOfNotification(notification))
+    element.append(notification.message)
+
+    return element;
+}
+
+function createHeaderOfNotification(notification){
+    const header = document.createElement('h5')
+
+    header.className = "mt-0 mb-1"
+    header.innerText = notification.header;
+
+    return header
+}
+
+/*
+//activate the timer calls after the page is loaded
+window.addEventListener('load', () => {
+    //The notification content is refreshed only once (using a timeout) but
+    //on each call it triggers another execution of itself later (1 second later)
+    fetchNotificationContentAsync();
 });
+
+ */

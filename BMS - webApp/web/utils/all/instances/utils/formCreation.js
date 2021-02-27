@@ -34,7 +34,7 @@ function createForm(loggedMemberDetails = [], boutHouseDataType, action) {
     const profileForm = document.createElement('form')
 
     profileForm.id = "mainForm"
-    profileForm.className = "col-md-5 border"
+    //profileForm.className = "col-md-10 border"
     profileForm.name = "mainForm"
     profileForm.action = "/webApp/" + action
     profileForm.method = "post"
@@ -78,6 +78,7 @@ function createUserFormHeader(boutHouseDataType) {
 
 function createLabelDetails(name){
     const labelEl = document.createElement('label')
+
     labelEl.className = "labels"
     labelEl.innerText = name
 
@@ -85,19 +86,19 @@ function createLabelDetails(name){
 }
 
 function createFieldPlace(loggedMemberDetails = []){
-    let usernameDetailsEl = document.createElement('div')
+    let fieldEl = document.createElement('div')
 
-    usernameDetailsEl.className = DETAILS_CLASS_NAME
+    fieldEl.className = DETAILS_CLASS_NAME
     Object.keys(loggedMemberDetails).forEach(function (key){
         let fieldDiv = document.createElement('div')
         fieldDiv.id = key
         fieldDiv.className = DETAILS_DIV_CLASS_NAME
         fieldDiv.append(createLabelDetails(key))
         fieldDiv.append(createInputDetails(key, loggedMemberDetails[key]))
-        usernameDetailsEl.append(fieldDiv)
+        fieldEl.append(fieldDiv)
     })
 
-    return usernameDetailsEl
+    return fieldEl
 }
 
 function createInputDetails(name, value) {

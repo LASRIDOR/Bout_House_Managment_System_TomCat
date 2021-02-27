@@ -29,7 +29,6 @@ public class GetAllFieldsServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //returning JSON objects, not HTML
         resp.setContentType("application/json");
         PrintWriter out = resp.getWriter();
         JSONObject fields = new JSONObject();
@@ -51,7 +50,7 @@ public class GetAllFieldsServlet extends HttpServlet {
                     fields.put(field.getNameOfField(), fieldOfInstance.getValue());
 
                 } catch (JSONException e) {
-                    System.out.println(String.format("json error: missed field (%s)", e.getMessage()));
+                    System.out.printf("json error: missed field (%s)%n", e.getMessage());
                 }
             }
 
