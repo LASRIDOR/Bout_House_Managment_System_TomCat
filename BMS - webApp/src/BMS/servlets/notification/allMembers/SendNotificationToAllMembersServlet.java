@@ -35,7 +35,7 @@ public class SendNotificationToAllMembersServlet extends HttpServlet {
             String message = req.getParameter(Constants.NOTIFICATION_MESSAGE);
             String header = req.getParameter(Constants.NOTIFICATION_HEADER);
             if (message != null && !message.trim().isEmpty()) {
-                System.out.println("Adding notification string from " + (emailOfLoggedMember != null ? emailOfLoggedMember.getValue() : "Unknown") + ": " + "'" + header + " :" + message + "'");
+                System.out.println("Adding notification string from " + emailOfLoggedMember.getValue() + ": " + "'" + header + " :" + message + "'");
                 notificationManager.addNotification(header, message);
                 try {
                     response.put("message", "Notification was sent!");

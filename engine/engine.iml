@@ -9,6 +9,5 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="shared" />
     <orderEntry type="library" scope="PROVIDED" name="Tomcat 8.5.61" level="application_server_libraries" />
-    <orderEntry type="library" name="java-json-1" level="project" />
   </component>
 </module>

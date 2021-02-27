@@ -10,6 +10,7 @@ import BMS.boutHouse.form.field.type.Informable;
 import BMS.boutHouse.form.field.type.MemberFieldType;
 import BMS.boutHouse.form.field.type.ReservationInfoFieldType;
 import BMS.boutHouse.form.field.type.TimeWindowInfoFieldType;
+import BMS.constants.Constants;
 import BMS.managment.CEO.BoutHouseManager;
 import BMS.managment.utils.exceptions.ExistingException;
 import BMS.managment.utils.exceptions.NeedToLoginException;
@@ -36,6 +37,7 @@ import java.util.Enumeration;
 @WebServlet(name = "UpdateServlet", urlPatterns = "/update reservation")
 public class UpdateReservationServlet extends HttpServlet {
     private static final String SIGN_UP_URL = "/webApp/login";
+    private static final String NOTIFY_ALL_MEMBER_URL = "/notify all members";
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -94,6 +96,7 @@ public class UpdateReservationServlet extends HttpServlet {
                 }
             }
 
+            getServletContext().getRequestDispatcher(NOTIFY_ALL_MEMBER_URL + "?" + Constants.NOTIFICATION_MESSAGE + "=Reservation Number: "+ idOfInstance.getValue() + " has been updated" + "&" + Constants.NOTIFICATION_HEADER + "=Manager Update Reservation").include(req, resp);
             fields.put("message", "Instance was updated successfully");
             out.print(fields);
             out.flush();
