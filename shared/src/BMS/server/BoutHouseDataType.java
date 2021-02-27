@@ -29,7 +29,8 @@ public enum BoutHouseDataType {
         }
         else if (managerName.equals(RESERVATION.nameOfManager)){
             dataTypeToReturn = BoutHouseDataType.RESERVATION;
-        }else if (managerName.equals(TIME_WINDOW.nameOfManager)){
+        }
+        else if (managerName.equals(TIME_WINDOW.nameOfManager)){
             dataTypeToReturn = BoutHouseDataType.TIME_WINDOW;
         }
         else{

@@ -18,8 +18,8 @@ public class Boat extends Form implements BoutHouseInstance {
             String boatName = (String) this.getAllFields().get(BoatInfoFieldType.BOAT_NAME).getValue();
             BoatType boatType = (BoatType) this.getAllFields().get(BoatInfoFieldType.BOAT_TYPE).getValue();
             boolean isBoatDisabled = (boolean) this.getAllFields().get(BoatInfoFieldType.BOAT_DISABLED).getValue();
-            boolean isBoatPrivate = (boolean) this.getAllFields().get(BoatInfoFieldType.BOAT_DISABLED).getValue();
-            theString =  "Serial Number: " + serialNumber + ", Boat Name: " + boatName + ", " + boatType.toString() + " " + (isBoatDisabled ? ", Boat is currently disabled" : "" + " " + (isBoatPrivate ? ", Boat is private" : ""));
+            boolean isBoatPrivate = (boolean) this.getAllFields().get(BoatInfoFieldType.BOAT_PRIVATE).getValue();
+            theString =  "Serial Number: " + serialNumber + ", Boat Name: " + boatName + ", " + boatType.toString() + " " + (isBoatDisabled ? ", Boat is currently disabled" : "") + " " + (isBoatPrivate ? ", Boat is private" : "");
         return theString;
     }
 

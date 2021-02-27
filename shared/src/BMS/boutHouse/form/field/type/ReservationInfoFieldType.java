@@ -6,7 +6,7 @@ public enum ReservationInfoFieldType implements Informable {
     RESERVATION_NUMBER("Reservation Number", "^[0-9]\\d*$"),
     //^[a-zA-Z0-9,#-.\s]*$
     NAME_ROWER("Name of Rower", "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$"),
-    DATE_OF_PRACTICE("Date of Practice (Pattern: YYYY-MM-DD)", "([12]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))"),
+    DATE_OF_PRACTICE("Date of Practice", "^([0-2][0-9]|(3)[0-1])(\\/)(((0)[0-9])|((1)[0-2]))(\\/)\\d{4}$"),
     //NEW_TIME_WINDOW("New Time Window (separate with an underscore, boat type is optional, i.e. _11:00_12:00_4X+)", "^([A-Za-z0-9 ]*[A-Za-z0-9][A-Za-z0-9 ])_*([0-1]?[0-9]|2[0-3]):[0-5][0-9]_*([0-1]?[0-9]|2[0-3]):[0-5][0-9](_(?:1X|2\\-|2X\\+|2\\+|2\\X|4\\+|4\\-|4X\\+|4X|8X\\+|8\\+))?"),
     //EXISTING_TIME_WINDOW("Existing Time Window i.e. Monday rowing", "^([A-Za-z0-9 ]*[A-Za-z0-9][A-Za-z0-9 ])"),
     TIME_WINDOW("Time window", null),
@@ -47,7 +47,7 @@ public enum ReservationInfoFieldType implements Informable {
             case "Name of Rower":
                 informableToReturn = ReservationInfoFieldType.NAME_ROWER;
                 break;
-            case "Date of Practice (Pattern: YYYY-MM-DD)":
+            case "Date of Practice":
                 informableToReturn = ReservationInfoFieldType.DATE_OF_PRACTICE;
                 break;
             case "Time window":

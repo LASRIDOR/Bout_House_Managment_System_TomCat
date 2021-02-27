@@ -73,24 +73,6 @@ public class Reservation extends Form implements BoutHouseInstance {
         isApproved = approved;
     }
 
-//    public void updateInstanceField(InfoField newField) throws WrongTypeException, FieldContainException {
-//        InfoField reservationFieldToUpdate;
-//
-//        if (newField.getType() instanceof ReservationInfoFieldType) {
-//            // Reservation number cannot be changed!
-//            if (newField.getType() == ReservationInfoFieldType.RESERVATION_NUMBER) {
-//                throw new WrongTypeException(newField.getType(), "Reservation Form");
-//            }
-//            else {
-//                reservationFieldToUpdate = getField(newField.getType());
-//                super.setField(newField);
-//            }
-//        }
-//        else {
-//            throw new WrongTypeException(newField.getType(), "Reservation Form");
-//        }
-//    }
-
     @Override
     public void setField(InfoField newInfoField) throws WrongTypeException {
         if (newInfoField.getType() instanceof ReservationInfoFieldType) {
@@ -121,7 +103,7 @@ public class Reservation extends Form implements BoutHouseInstance {
 
         if (this.getAllFields().containsKey(ReservationInfoFieldType.NAME_COXSWAIN)) {
             if (this.getAllFields().get(ReservationInfoFieldType.NAME_COXSWAIN) != null) {
-                theString += this.getAllFields().get(ReservationInfoFieldType.NAME_COXSWAIN).getValue();
+                theString += "\nCoxswain: " + this.getAllFields().get(ReservationInfoFieldType.NAME_COXSWAIN).getValue();
             }
         }
 

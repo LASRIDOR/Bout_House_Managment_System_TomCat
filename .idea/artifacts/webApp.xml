@@ -10,8 +10,8 @@
           <element id="module-output" name="shared" />
         </element>
         <element id="directory" name="lib">
+          <element id="library" level="project" name="java-json-1" />
           <element id="library" level="project" name="java-json" />
-          <element id="library" level="project" name="Java EE 6-Java EE 6" />
           <element id="artifact" artifact-name="engine:jar" />
           <element id="artifact" artifact-name="shared:jar" />
         </element>

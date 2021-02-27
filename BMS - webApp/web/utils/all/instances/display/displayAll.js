@@ -31,7 +31,10 @@ function insertToBody(allInstances, boutHouseDataType) {
     const htmlContentEl = document.getElementById('about-dialog-text-area');
 
     body.appendChild(createMainDisplayAll(allInstances, boutHouseDataType))
-    body.removeChild(htmlContentEl)
+
+    if (htmlContentEl != null) {
+        body.removeChild(htmlContentEl)
+    }
 }
 
 function createMainDisplayAll(allInstances, boutHouseDataType){
@@ -65,6 +68,7 @@ function createHeaderOfMain(boutHouseDataType){
 function createDivOfText(allInstances){
     const textEl = document.createElement('text')
 
+    textEl.id = 'allInstances'
     textEl.innerText = allInstances.message
 
     return textEl

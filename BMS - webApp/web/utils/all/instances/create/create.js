@@ -1,4 +1,5 @@
 GET_EMPTY_FIELDS_URL = '/webApp/field of type'
+CREATE_RESERVATION_URL = '/webApp/create reservation'
 
 async function fetchCreateInstance(boutHouseDataType) {
     let params = new URLSearchParams()
@@ -12,5 +13,10 @@ async function fetchCreateInstance(boutHouseDataType) {
     const response = await fetch(request)
     const instanceEmptyFields = await response.json()
 
-    putOnlyFormInBody(instanceEmptyFields, boutHouseDataType, "create")
+    if (boutHouseDataType === 'Reservation') {
+        putOnlyFormInBody(instanceEmptyFields, boutHouseDataType, "create reservation")
+    }
+    else {
+        putOnlyFormInBody(instanceEmptyFields, boutHouseDataType, "create")
+    }
 }

@@ -3,7 +3,10 @@ package BMS.managment.reservationManager;
 import BMS.boutHouse.activities.TimeWindow;
 import BMS.boutHouse.form.exceptions.FieldContainException;
 import BMS.boutHouse.form.exceptions.WrongTypeException;
+import BMS.boutHouse.form.field.infoField.FieldTypeIsNotSupportExcpetion;
 import BMS.boutHouse.form.field.infoField.InfoField;
+import BMS.boutHouse.form.field.infoField.InfoFieldMaker;
+import BMS.boutHouse.form.field.infoField.UserInputForInfoFIeldException;
 import BMS.boutHouse.form.field.type.*;
 import BMS.bouthouse.activities.Reservation;
 import BMS.managment.userManager.MemberManager;
@@ -101,7 +104,7 @@ public class ReservationManager extends SystemManager {
     }
 
     @Override
-    public void updateInstance(InfoField<String> emailOfUpdater, InfoField<String> reservationNumber, InfoField newInfoField) throws ExistingException, WrongTypeException, NeedToLoginException, IllegalAccessException, OnlyManagerAccessException {
+    public void updateInstance(InfoField<String> emailOfUpdater, InfoField<String> reservationNumber, InfoField newInfoField) throws ExistingException, WrongTypeException, NeedToLoginException, IllegalAccessException, OnlyManagerAccessException, FieldTypeIsNotSupportExcpetion, UserInputForInfoFIeldException {
         MemberManager.checkLogged(emailOfUpdater);
         checkInstanceExistence(reservationNumber, false);
 
@@ -118,6 +121,32 @@ public class ReservationManager extends SystemManager {
             if (newInfoField.getType() == ReservationInfoFieldType.ASSIGNED_BOAT_SERIAL_NUMBER) {
                 approveReservation(emailOfUpdater, reservationNumber);
             }
+
+            if (newInfoField.getType() == ReservationInfoFieldType.NAME_ROWER) {
+                Reservation reservation = (Reservation) getInstanceWithId(reservationNumber);
+                String nameOfRower = (String) reservation.getAllFields().get(ReservationInfoFieldType.NAME_ROWER).getValue();
+                String[] namesOfRowers = (String[]) reservation.getAllFields().get(ReservationInfoFieldType.NAMES_OF_ROWERS).getValue();
+
+                for (int i = 0; i < namesOfRowers.length; i++) {
+                    if (namesOfRowers[i].equals(nameOfRower)) {
+                        namesOfRowers[i] = (String) newInfoField.getValue();
+                    }
+                }
+
+                InfoField namesOfRowersInfoField = InfoFieldMaker.createInfoField(String.join(",", namesOfRowers), ReservationInfoFieldType.NAMES_OF_ROWERS);
+                setFieldToReservation(reservationNumber, namesOfRowersInfoField);
+            }
+
+            if (newInfoField.getType() == ReservationInfoFieldType.NAMES_OF_ROWERS) {
+                Reservation reservation = (Reservation) getInstanceWithId(reservationNumber);
+                String nameOfRower = (String) reservation.getAllFields().get(ReservationInfoFieldType.NAME_ROWER).getValue();
+
+                String[] namesOfRowers = (String[]) newInfoField.getValue();
+
+                newInfoField = InfoFieldMaker.createInfoField((String.join(",", namesOfRowers) + "," + nameOfRower), ReservationInfoFieldType.NAMES_OF_ROWERS);
+
+            }
+
             setFieldToReservation(reservationNumber, newInfoField);
         } else {
             throw new IllegalAccessException("You don't have access to a reservation you're not in.");

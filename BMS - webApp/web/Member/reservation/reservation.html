@@ -7,15 +7,30 @@
     <meta name="author" content="Dor Lasri">
     <title>Bout House - Member Reservation Page</title>
     <!-- Bootstrap core CSS -->
-    <script src="/webApp/pages/member/reservation/futureWeek.js"></script>
-    <script src="/webApp/utils/all/instances/update.js"></script>
-    <script src="/webApp/utils/all/instances/idOfInstance.js"></script>
-    <script src="/webApp/utils/all/instances/fromCreation.js"></script>
+
+    <script src="/webApp/utils/all/instances/utils/idOfInstance.js"></script>
+    <script src="/webApp/utils/all/instances/update/update.js"></script>
+    <script src="/webApp/utils/all/instances/create/create.js"></script>
+    <script src="/webApp/utils/all/instances/delete/delete.js"></script>
+    <script src="/webApp/utils/all/instances/display/displayAll.js"></script>
+    <script src="/webApp/utils/all/instances/utils/formCreation.js"></script>
+    <script src="/webApp/pages/manager/reservation/displayReservations.js"></script>
+    <script src="/webApp/pages/manager/reservation/create.js"></script>
+    <script src="/webApp/pages/manager/reservation/update.js"></script>
+    <script src="/webApp/pages/manager/timeWindow/create.js"></script>
+    <script src="/webApp/utils/all/instances/utils/managerDisplayReservationOptions.js"></script>
+    <script src="/webApp/utils/all/instances/utils/elementsDisplay.js"></script>
+    <script src="/webApp/pages/member/reservation/pastWeek.js"></script>
+    <script src="/webApp/pages/member/reservation/upcomingWeek.js"></script>
+    <script src="/webApp/utils/all/instances/utils/ObjectsDisplay.js"></script>
+
+
     <link href="/webApp/assets/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
+
 </head>
-<body id="reservationBody">
+<body id="body">
     <!--Navigation bar-->
     <div id="nav-placeholder">
 
@@ -32,10 +47,11 @@
         <h1 class="fw-light">Reservation</h1>
         <p class="lead text-muted"></p>
         <p>
-            <a href="#" class="btn btn-primary my-2">Create</a>
+            <a onclick="fetchReservationEmptyFields()" class="btn btn-primary my-2">Create</a>
             <a onclick="createInputForIdOfInstance('Reservation', 'Update')" class="btn btn-primary my-2">Update</a>
-            <a onclick="fetchWeeklyReservation()" class="btn btn-primary my-2">Display Future Reservations</a>
-            <a href="#" class="btn btn-primary my-2">Display Past 7 Days Reservations</a>
+            <a onclick="fetchUpcomingWeekReservations()" class="btn btn-primary my-2">Display Future Reservations</a>
+            <a onclick="fetchPastWeekReservations()" class="btn btn-primary my-2">Display Past Reservations</a>
+
         </p>
         <div id="errorMessage"></div>
     </div>
