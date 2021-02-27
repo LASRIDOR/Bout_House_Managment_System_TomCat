@@ -23,8 +23,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static BMS.utils.ServletUtils.createJSONReservations;
 
 
-@WebServlet(name = "FutureReservationServlet", urlPatterns = "/future reservation")
-public class FutureReservationServlet extends HttpServlet {
+@WebServlet(name = "PastReservationServlet", urlPatterns = "/past reservation")
+public class PastReservationServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -34,13 +34,13 @@ public class FutureReservationServlet extends HttpServlet {
             JSONObject json;
             try {
                 BoutHouseManager manager = ServletUtils.getBoutHouseManager(getServletContext());
-                List<Reservation> futureReservations = manager.getLoggedMemberFutureReservations(SessionUtils.getEmail(req));
+                List<Reservation> futureReservations = manager.getLoggedMemberPastReservations(SessionUtils.getEmail(req));
                 json = createJSONReservations(futureReservations);
                 out.println(json);
                 out.flush();
             }catch (IllegalStateException e){
                 json = new JSONObject();
-                json.put("0", "You don't have future reservation at the moment");
+                json.put("0", "You don't have any past reservations");
                 out.println(json);
                 out.flush();
             }

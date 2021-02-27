@@ -11,6 +11,7 @@
           <element id="module-output" name="notificationBMSWebAppEngine" />
         </element>
         <element id="directory" name="lib">
+          <element id="library" level="project" name="java-json-1" />
           <element id="library" level="project" name="java-json" />
           <element id="library" level="project" name="gson-2.8.6" />
           <element id="artifact" artifact-name="engine:jar" />

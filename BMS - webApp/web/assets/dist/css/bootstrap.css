@@ -2418,6 +2418,7 @@ textarea.form-control-lg {
 }
 .form-check-input[type=checkbox] {
   border-radius: 0.25em;
+  margin-right: 0.25em;
 }
 .form-check-input[type=radio] {
   border-radius: 50%;
@@ -10712,6 +10713,14 @@ textarea.form-control-lg {
   .d-print-none {
     display: none !important;
   }
+
+  #Boat-fields { display: flex; flex-direction: column; }
+  #Serial-Number { order: 1; }
+  #Boat-Name { order: 2; }
+  #Boat-Type { order: 3; }
+  #Is-boat-private { order: 4; }
+  #Is-boat-disabled { order: 5; }
+
 }
 
 /*# sourceMappingURL=bootstrap.css.map */

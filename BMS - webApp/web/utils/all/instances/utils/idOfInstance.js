@@ -1,6 +1,16 @@
 function createInputForIdOfInstance(instanceType, operation){
     const htmlContentEl = document.getElementById('buttonArea')
+    const displayReservationsArea = document.getElementById("displayReservationsArea")
     const extraInformation = document.getElementById("extraInformation")
+    const approveReservationsArea = document.getElementById("approveReservationsArea")
+
+    if (displayReservationsArea != null) {
+        displayReservationsArea.remove()
+    }
+
+    if (approveReservationsArea != null) {
+        approveReservationsArea.remove()
+    }
 
     if (extraInformation == null){
         const extraInformation = document.createElement('div')
@@ -43,13 +53,13 @@ function createCompatibleText(instanceType){
     if (instanceType === "Member"){
         message += "Email of Member"
     }
-    else if (instanceType === "Boat"){
+    else if (instanceType === "Storage"){
         message += "Boat Id"
     }
     else if (instanceType === "Reservation"){
         message += "Reservation Number"
     }
-    else{ // instanceType === "TimeWindow"
+    else {
         message += "Time Window Name"
     }
 
@@ -60,7 +70,18 @@ function createSubmitButtonForInstanceId(instanceType, operation){
     let functionToInvoke
 
     if (operation === "Update"){
-        functionToInvoke = "fetchUpdateInstance('"+ instanceType+"')"
+        if (instanceType === "Storage") {
+            functionToInvoke = "fetchBoatUpdateDetails()"
+        }
+        else if (instanceType === "Time Window") {
+            functionToInvoke = "fetchUpdateTimeWindowDetails()"
+        }
+        else if (instanceType === "Reservation") {
+            functionToInvoke = "fetchUpdateReservationDetails()"
+        }
+        else {
+            functionToInvoke = "fetchUpdateInstance('"+ instanceType+"')"
+        }
     }
     else if (operation === "Delete"){
         functionToInvoke = "fetchDeleteInstance('"+ instanceType+"')"

@@ -18,7 +18,12 @@ async function fetchUpdateInstance(boutHouseDataType) {
         publishError(loggedMemberDetails["ERROR"])
     }
     else{
-        putOnlyFormInBody(loggedMemberDetails, boutHouseDataType, "update")
+        if (boutHouseDataType == "Reservation") {
+            putOnlyFormInBody(loggedMemberDetails, boutHouseDataType, "update reservation")
+        }
+        else {
+            putOnlyFormInBody(loggedMemberDetails, boutHouseDataType, "update")
+        }
     }
 }
 

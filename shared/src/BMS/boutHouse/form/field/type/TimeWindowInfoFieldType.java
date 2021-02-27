@@ -4,8 +4,8 @@ import BMS.boutHouse.form.exceptions.WrongTypeException;
 
 public enum TimeWindowInfoFieldType implements Informable {
     TIME_WINDOW_NAME("Time Window Name", "^[A-Za-z0-9 ]*[A-Za-z0-9][A-Za-z0-9 ]*$"),
-    ACTIVITY_START_TIME("Activity Start Time (Pattern: HH:MM)", "^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$"),
-    ACTIVITY_END_TIME("Activity End Time (Pattern: HH:MM)", "^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$"),
+    ACTIVITY_START_TIME("Activity Start Time", "^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$"),
+    ACTIVITY_END_TIME("Activity End Time", "^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$"),
     BOAT_TYPE("(Optional) Boat Type: (1X/2-/2+/2X/2X+/4+/4-/4X+/4X/8X+/8+) " +
             "(Narrow/Wide) (FlatWater/Coastal)\ni.e. 2- Wide Coastal", "^(?:1X|2\\-|2X\\+|2\\+|2X|4\\+|4\\-|4X\\+|4X|8X\\+|8\\+)?\\s*(?:Narrow|Wide)?\\s*(?:FlatWater|Coastal)?$");
 
@@ -34,10 +34,10 @@ public enum TimeWindowInfoFieldType implements Informable {
             case "Time Window Name":
                 informableToReturn = TimeWindowInfoFieldType.TIME_WINDOW_NAME;
                 break;
-            case "Activity Start Time (Pattern: HH:MM)":
+            case "Activity Start Time":
                 informableToReturn = TimeWindowInfoFieldType.ACTIVITY_START_TIME;
                 break;
-            case "Activity End Time (Pattern: HH:MM)":
+            case "Activity End Time":
                 informableToReturn = TimeWindowInfoFieldType.ACTIVITY_END_TIME;
                 break;
             case "(Optional) Boat Type: (1X/2-/2+/2X/2X+/4+/4-/4X+/4X/8X+/8+) (Narrow/Wide) (FlatWater/Coastal)\ni.e. 2- Wide Coastal":

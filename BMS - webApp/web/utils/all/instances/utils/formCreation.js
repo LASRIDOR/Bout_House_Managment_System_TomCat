@@ -6,7 +6,10 @@ function putOnlyFormInBody(loggedMemberDetails = [], boutHouseDataType, action) 
     const htmlContentEl = document.getElementById('about-dialog-text-area');
 
     body.appendChild(createMainForm(loggedMemberDetails , boutHouseDataType, action))
-    body.removeChild(htmlContentEl)
+
+    if (htmlContentEl != null) {
+        body.removeChild(htmlContentEl)
+    }
 }
 
 function createMainForm(loggedMemberDetails = [], boutHouseDataType, action){
@@ -120,6 +123,7 @@ function createSubmitButtonEl(submitFunction) {
     const submitButtonEL = document.createElement('button')
     submitButtonEL.className = "btn btn-primary profile-button"
     submitButtonEL.type = "button"
+    submitButtonEL.id = "submitButton"
     submitButtonEL.setAttribute('onclick', "submitMainForm()")
     submitButtonEL.innerText = "Save"
     submitEl.append(submitButtonEL)
@@ -128,7 +132,7 @@ function createSubmitButtonEl(submitFunction) {
 }
 
 function InCaseOfInstanceIdNeeded(mainFormDiv, action){
-    if (action === "update"){
+    if (action === "update" || action === "update reservation"){
         const instanceIdInputEl = document.getElementById("instanceId")
 
         instanceIdInputEl.hidden = true
@@ -136,16 +140,35 @@ function InCaseOfInstanceIdNeeded(mainFormDiv, action){
     }
 }
 
-
 async function submitMainForm() {
     const updateFormEl = document.forms.namedItem('mainForm');
     const errorDiv = document.getElementById("errorMessage")
 
     const data = new URLSearchParams();
-    for (const pair of new FormData(updateFormEl)) {
-        if (pair[1] !== ""){
-            data.append(pair[0], pair[1]);
+    let isChecked
+
+    const inputs = document.getElementsByTagName('input');
+
+    for (let i = 0; i < inputs.length; i++) {
+        if (inputs[i].type.toLowerCase() == 'checkbox') {
+            !inputs[i].checked ? isChecked = 'no' : isChecked = 'yes';
+            data.append(inputs[i].name, isChecked)
         }
+    }
+
+    const allFormsInPage = document.getElementsByName('mainForm')
+
+    for (let i = 0; i < allFormsInPage.length; i++) {
+        for (const pair of new FormData(allFormsInPage[i])) {
+            if (pair[1] !== "") {
+                data.append(pair[0], pair[1]);
+            }
+        }
+    }
+
+    // Only happens on the reservation's form - both reservation form and time window form appear on the page
+    if (allFormsInPage.length === 2) {
+        updateFormEl.action = '/webApp/create reservation'
     }
 
     await fetch(updateFormEl.action, {

@@ -238,9 +238,9 @@ public class InfoFieldMaker {
     }
 
     private static InfoField<LocalDate> makeLocalDateField(String fieldValue, Informable fieldType) {
-        String[] localDateSplit = fieldValue.split("-");
+        String[] localDateSplit = fieldValue.split("/");
 
-        LocalDate localDate = LocalDate.of(Integer.parseInt(localDateSplit[0]), Integer.parseInt(localDateSplit[1]), Integer.parseInt(localDateSplit[2]));
+        LocalDate localDate = LocalDate.of(Integer.parseInt(localDateSplit[2]), Integer.parseInt(localDateSplit[1]), Integer.parseInt(localDateSplit[0]));
 
         return new InfoField<>(fieldType, localDate);
     }

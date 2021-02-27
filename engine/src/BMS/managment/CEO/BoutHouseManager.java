@@ -120,7 +120,7 @@ public class BoutHouseManager {
         return infoFieldInstanceId;
     }
 
-    public void updateSystemInstance(BoutHouseDataType managerType, InfoField<String> emailOfUpdater, InfoField<String> idOfInstance, InfoField toUpdate) throws WrongTypeException, OnlyManagerAccessException, ExistingException, ExtensionException, FileNotFoundException, JAXBException, NeedToLoginException, IllegalAccessException {
+    public void updateSystemInstance(BoutHouseDataType managerType, InfoField<String> emailOfUpdater, InfoField<String> idOfInstance, InfoField toUpdate) throws WrongTypeException, OnlyManagerAccessException, ExistingException, ExtensionException, FileNotFoundException, JAXBException, NeedToLoginException, IllegalAccessException, UserInputForInfoFIeldException, FieldTypeIsNotSupportExcpetion {
         SystemManager systemManager = boutHouseManagers.get(managerType);
         systemManager.updateInstance(emailOfUpdater, idOfInstance, toUpdate);
         updateXmlWithInstanceUpdate(systemManager, managerType, idOfInstance, toUpdate);
@@ -257,7 +257,7 @@ public class BoutHouseManager {
         systemManager.loadXml(xmlManager.loadDataBaseXml(managerType));
     }
 
-    public List<Reservation> getReservationsOfUpcomingWeek() {
+    public List<Reservation> getReservationsOfUpcomingWeek() throws IllegalArgumentException, IllegalStateException{
         ReservationManager reservationManager = (ReservationManager) boutHouseManagers.get(BoutHouseDataType.RESERVATION);
         return reservationManager.getReservationsOfUpcomingWeek();
     }
@@ -277,12 +277,12 @@ public class BoutHouseManager {
         return reservationManager.getLoggedMemberPastReservations(loggedMemberEmail);
     }
 
-    public List<Reservation> getUnapprovedReservationOfSpecificDate(InfoField dateToPrintUnapprovedReservations) throws IllegalStateException{
+    public List<Reservation> getUnapprovedReservationOfSpecificDate(InfoField dateToPrintUnapprovedReservations) throws IllegalArgumentException, IllegalStateException {
         ReservationManager reservationManager = (ReservationManager) boutHouseManagers.get(BoutHouseDataType.RESERVATION);
         return reservationManager.getUnapprovedReservationOfSpecificDate(dateToPrintUnapprovedReservations);
     }
 
-    public List<Reservation> getUnapprovedReservationOfUpcomingWeek() throws IllegalStateException{
+    public List<Reservation> getUnapprovedReservationOfUpcomingWeek() throws IllegalArgumentException, IllegalStateException {
         ReservationManager reservationManager = (ReservationManager) boutHouseManagers.get(BoutHouseDataType.RESERVATION);
         return reservationManager.getUnapprovedReservationOfUpcomingWeek();
     }
@@ -388,7 +388,7 @@ public class BoutHouseManager {
         return totalNumberOfRowers;
     }
 
-    public void updateReservationsAfterDisablingBoat(InfoField disabledBoatSerialNumber) {
+    public void updateReservationsAfterDisablingBoat(BoutHouseDataType boutHouseDataType, InfoField<String> emailFromParameter, InfoField<String> idOfInstance, InfoField disabledBoatSerialNumber) {
         ReservationManager reservationManager = (ReservationManager) boutHouseManagers.get(BoutHouseDataType.RESERVATION);
         reservationManager.updateReservationsAfterDisablingBoat(disabledBoatSerialNumber);
     }

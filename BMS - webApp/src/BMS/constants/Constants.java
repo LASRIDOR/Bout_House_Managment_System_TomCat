@@ -18,4 +18,5 @@ public class Constants {
     public static final String NOTIFICATION_HEADER = "header";
     public static final String NOTIFICATION_INDEX = "Notification Index To Delete";
     public static final String INSTANCE_ID_ATTRIBUTE_NAME = "instanceId";
+    public static final String DISPLAY_RESERVATIONS_OPTIONS = "Display Reservations option";
 }
