@@ -1,9 +1,7 @@
-GET_EMPTY_FIELDS_URL = '/webApp/field of type'
-GET_TIME_WINDOW_URL = '/webApp/get time windows'
 
 const RESERVATION_NUMBER_KEY = "Reservation Number"
 const NAME_OF_ROWER_KEY = "Name of Rower"
-const DATE_OF_PRACTICE_KEY = "Date of Practice"
+//const DATE_OF_PRACTICE_KEY_RESERVATION = "Date of Practice"
 const TIME_WINDOW_KEY = "Time window"
 const BOAT_TYPE_KEY = "Boat Type: (1X/2-/2+/2X/2X+/4+/4-/4X+/4X/8X+/8+) (Narrow/Wide) (FlatWater/Coastal) i.e. 2- Wide Coastal"
 const NAME_OF_RESERVATION_MAKER_KEY = "Name of Reservation Maker"

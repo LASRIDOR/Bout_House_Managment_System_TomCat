@@ -7,7 +7,9 @@ async function fetchManagerDisplayReservations(option) {
     params.set("Display Reservations option", option)
 
     if (dateIDEl != null) {
-        params.set("dateId", dateIDEl.value)
+        let splitDate = (dateIDEl.value).split('-')
+        splitDate = splitDate[2] + '/' + splitDate[1] + '/' + splitDate[0]
+        params.set("dateId", splitDate)
     }
 
     const request = new Request(DISPLAY_RESERVATIONS_URL, {

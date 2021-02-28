@@ -1,5 +1,7 @@
 const DETAILS_CLASS_NAME = "row mt-3"
 const DETAILS_DIV_CLASS_NAME = "col-md-12"
+const DATE_OF_PRACTICE_KEY = "Date of Practice"
+
 
 function putOnlyFormInBody(loggedMemberDetails = [], boutHouseDataType, action) {
     const body = document.getElementById("body")

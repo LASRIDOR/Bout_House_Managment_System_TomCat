@@ -1,5 +1,5 @@
 async function fetchBoatUpdateDetails() {
-        fetchUpdateInstance('Time Window')
+        fetchUpdateInstance('Boat')
             .then(() => turnFilledTextInputIntoCheckbox())
             .then(() => setOrderOfElements([SERIAL_NUMBER_KEY, BOAT_NAME_KEY, BOAT_TYPE_KEY, IS_BOAT_PRIVATE_KEY, IS_BOAT_DISABLED_KEY]))
 }

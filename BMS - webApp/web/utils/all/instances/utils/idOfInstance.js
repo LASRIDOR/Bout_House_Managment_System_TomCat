@@ -53,7 +53,7 @@ function createCompatibleText(instanceType){
     if (instanceType === "Member"){
         message += "Email of Member"
     }
-    else if (instanceType === "Storage"){
+    else if (instanceType === "Boat"){
         message += "Boat Id"
     }
     else if (instanceType === "Reservation"){
@@ -70,7 +70,7 @@ function createSubmitButtonForInstanceId(instanceType, operation){
     let functionToInvoke
 
     if (operation === "Update"){
-        if (instanceType === "Storage") {
+        if (instanceType === "Boat") {
             functionToInvoke = "fetchBoatUpdateDetails()"
         }
         else if (instanceType === "Time Window") {

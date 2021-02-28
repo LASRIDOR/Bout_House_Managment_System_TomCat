@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Time;
+
 
 @WebServlet(name = "GetTimeWindowServlet", urlPatterns = "/get time windows")
 public class GetTimeWindowsServlet extends HttpServlet {

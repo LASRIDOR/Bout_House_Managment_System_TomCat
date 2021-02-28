@@ -11,19 +11,23 @@ function addReservationNumberTextBox() {
     const container = document.getElementsByClassName("container");
     const reservationNumberDiv = document.createElement("div")
     const submitReservationNumberButton = document.createElement('a')
+    let content = document.body.textContent || document.body.innerText;
+    let IsThereAreReservationToDisplay = content.indexOf("There are no reservations to display")!==-1;
 
-    reservationNumberDiv.id = "reservationNumberDiv"
+    if (!IsThereAreReservationToDisplay) {
+        reservationNumberDiv.id = "reservationNumberDiv"
 
-    container[0].append(reservationNumberDiv)
+        container[0].append(reservationNumberDiv)
 
-    reservationNumberDiv.append(createLabelDetails(RESERVATION_NUMBER_KEY))
-    reservationNumberDiv.append(createInputDetails(RESERVATION_NUMBER_KEY, ""))
-    reservationNumberDiv.append(submitReservationNumberButton)
+        reservationNumberDiv.append(createLabelDetails(RESERVATION_NUMBER_KEY))
+        reservationNumberDiv.append(createInputDetails(RESERVATION_NUMBER_KEY, ""))
+        reservationNumberDiv.append(submitReservationNumberButton)
 
-    submitReservationNumberButton.className = "btn btn-primary my-2"
-    submitReservationNumberButton.id = "submitReservationNumberButton"
-    submitReservationNumberButton.innerText = "Submit"
-    submitReservationNumberButton.setAttribute("onclick", "fetchManagerApproveReservationAfterGettingReservationNumber()")
+        submitReservationNumberButton.className = "btn btn-primary my-2"
+        submitReservationNumberButton.id = "submitReservationNumberButton"
+        submitReservationNumberButton.innerText = "Submit"
+        submitReservationNumberButton.setAttribute("onclick", "fetchManagerApproveReservationAfterGettingReservationNumber()")
+    }
 }
 
 async function fetchManagerApproveReservationAfterGettingReservationNumber() {
@@ -54,7 +58,7 @@ function displayOptionalBoats(optionalBoats) {
     }
 
     // SHOULD BE AN IF OPTIONAL BOATS IS NOT EMPTY
-    if (optionalBoats === null) {
+    if (optionalBoats !== null) {
         const boatNumberDiv = document.createElement("div")
         const submitBoatNumberButton = document.createElement('a')
 
