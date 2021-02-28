@@ -7,7 +7,7 @@ public enum TimeWindowInfoFieldType implements Informable {
     ACTIVITY_START_TIME("Activity Start Time", "^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$"),
     ACTIVITY_END_TIME("Activity End Time", "^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$"),
     BOAT_TYPE("(Optional) Boat Type: (1X/2-/2+/2X/2X+/4+/4-/4X+/4X/8X+/8+) " +
-            "(Narrow/Wide) (FlatWater/Coastal)\ni.e. 2- Wide Coastal", "^(?:1X|2\\-|2X\\+|2\\+|2X|4\\+|4\\-|4X\\+|4X|8X\\+|8\\+)?\\s*(?:Narrow|Wide)?\\s*(?:FlatWater|Coastal)?$");
+            "(Narrow/Wide) (FlatWater/Coastal) i.e. 2- Wide Coastal", "^(?:1X|2\\-|2X\\+|2\\+|2X|4\\+|4\\-|4X\\+|4X|8X\\+|8\\+)?\\s*(?:Narrow|Wide)?\\s*(?:FlatWater|Coastal)?$");
 
     private String nameOfField;
     private String regexPattern;
@@ -40,7 +40,7 @@ public enum TimeWindowInfoFieldType implements Informable {
             case "Activity End Time":
                 informableToReturn = TimeWindowInfoFieldType.ACTIVITY_END_TIME;
                 break;
-            case "(Optional) Boat Type: (1X/2-/2+/2X/2X+/4+/4-/4X+/4X/8X+/8+) (Narrow/Wide) (FlatWater/Coastal)\ni.e. 2- Wide Coastal":
+            case "(Optional) Boat Type: (1X/2-/2+/2X/2X+/4+/4-/4X+/4X/8X+/8+) (Narrow/Wide) (FlatWater/Coastal) i.e. 2- Wide Coastal":
                 informableToReturn = TimeWindowInfoFieldType.BOAT_TYPE;
                 break;
             default:

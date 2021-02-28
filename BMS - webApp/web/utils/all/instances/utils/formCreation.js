@@ -161,6 +161,11 @@ async function submitMainForm() {
     for (let i = 0; i < allFormsInPage.length; i++) {
         for (const pair of new FormData(allFormsInPage[i])) {
             if (pair[1] !== "") {
+                if (pair[0] === DATE_OF_PRACTICE_KEY ) {
+                    const splitDate = pair[1].split('-')
+                    pair[1] = splitDate[2] + '/' + splitDate[1] + '/' + splitDate[0]
+                }
+
                 data.append(pair[0], pair[1]);
             }
         }

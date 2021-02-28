@@ -5,7 +5,7 @@ const RESERVATION_NUMBER_KEY = "Reservation Number"
 const NAME_OF_ROWER_KEY = "Name of Rower"
 const DATE_OF_PRACTICE_KEY = "Date of Practice"
 const TIME_WINDOW_KEY = "Time window"
-const BOAT_TYPE_KEY = "Boat Type: (1X/2-/2+/2X/2X+/4+/4-/4X+/4X/8X+/8+) (Narrow/Wide) (FlatWater/Coastal)\ni.e. 2- Wide Coastal"
+const BOAT_TYPE_KEY = "Boat Type: (1X/2-/2+/2X/2X+/4+/4-/4X+/4X/8X+/8+) (Narrow/Wide) (FlatWater/Coastal) i.e. 2- Wide Coastal"
 const NAME_OF_RESERVATION_MAKER_KEY = "Name of Reservation Maker"
 const DATE_OF_RESERVATION_KEY = "Date of Reservation"
 const NAMES_OF_ROWERS_KEY = "Names of Rowers"
@@ -84,7 +84,7 @@ function setTimeWindowFormAccordingToTimeWindowsDisplayed() {
     if (document.getElementById('allInstances').innerText != "") {
         document.getElementById("Activity Start Time").remove()
         document.getElementById("Activity End Time").remove()
-        document.getElementById("(Optional) Boat Type: (1X/2-/2+/2X/2X+/4+/4-/4X+/4X/8X+/8+) (Narrow/Wide) (FlatWater/Coastal)\ni.e. 2- Wide Coastal").remove()
+        document.getElementById("(Optional) Boat Type: (1X/2-/2+/2X/2X+/4+/4-/4X+/4X/8X+/8+) (Narrow/Wide) (FlatWater/Coastal) i.e. 2- Wide Coastal").remove()
     }
 }
 

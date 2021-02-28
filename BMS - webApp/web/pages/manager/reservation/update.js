@@ -40,7 +40,7 @@ function turnNamesOfRowersToTextInputFields() {
     displayNamesOfRowersTextBoxes(namesOfRowersArray.length);
 
     for (let i = 0 ; i < namesOfRowersArray.length; i++) {
-        if (namesOfRowersArray[i] != nameOfRower) {
+        if (namesOfRowersArray[i] !== nameOfRower) {
             document.getElementById("RowerNo." + (i + 1) + 'ID').placeholder = namesOfRowersArray[i];
             setOnKeyUpAttributeToElement("RowerNo." + (i + 1), "setAllNamesOfRowersFieldsValue()");
         }
@@ -89,7 +89,7 @@ function setAllNamesOfRowersFieldsValue() {
 }
 
 function checkIfCoxswainNeeded() {
-    if (document.getElementById(BOAT_TYPE_KEY + 'ID').placeholder.indexOf('+') != -1) {
+    if (document.getElementById(BOAT_TYPE_KEY + 'ID').placeholder.indexOf('+') !== -1) {
         changeElementsVisibility([NAME_COXSWAIN_KEY], true)
     }
     else {

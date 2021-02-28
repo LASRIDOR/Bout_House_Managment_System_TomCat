@@ -6,7 +6,7 @@ import BMS.server.BoutHouseDataType;
 public enum BoatInfoFieldType implements Informable {
     SERIAL_NUMBER("Serial Number", "^[0-9]*$"),
     BOAT_NAME("Boat Name", "^[A-Za-z0-9- ]*$"),
-    BOAT_TYPE("Boat Type: (1X/2-/2+/2X/2X+/4+/4-/4X+/4X/8X+/8+) (Narrow/Wide) (FlatWater/Coastal)\ni.e. 2- Wide Coastal", "^(?:1X|2\\-|2X\\+|2\\+|2X|4\\+|4\\-|4X\\+|4X|8X\\+|8\\+)\\s*(?:Narrow|Wide)\\s*(?:FlatWater|Coastal)$"),
+    BOAT_TYPE("Boat Type: (1X/2-/2+/2X/2X+/4+/4-/4X+/4X/8X+/8+) (Narrow/Wide) (FlatWater/Coastal) i.e. 2- Wide Coastal", "^(?:1X|2\\-|2X\\+|2\\+|2X|4\\+|4\\-|4X\\+|4X|8X\\+|8\\+)\\s*(?:Narrow|Wide)\\s*(?:FlatWater|Coastal)$"),
     BOAT_DISABLED("Is boat disabled?", "^(?:Yes|No|yes|no|NO|YES)$"),
     BOAT_PRIVATE("Is boat private?", "^(?:Yes|No|yes|no|NO|YES)$");
 
@@ -39,7 +39,7 @@ public enum BoatInfoFieldType implements Informable {
             case "Boat Name":
                 informableToReturn = BoatInfoFieldType.BOAT_NAME;
                 break;
-            case "Boat Type: (1X/2-/2+/2X/2X+/4+/4-/4X+/4X/8X+/8+) (Narrow/Wide) (FlatWater/Coastal)\ni.e. 2- Wide Coastal":
+            case "Boat Type: (1X/2-/2+/2X/2X+/4+/4-/4X+/4X/8X+/8+) (Narrow/Wide) (FlatWater/Coastal) i.e. 2- Wide Coastal":
                 informableToReturn = BoatInfoFieldType.BOAT_TYPE;
                 break;
             case "Is boat disabled?":

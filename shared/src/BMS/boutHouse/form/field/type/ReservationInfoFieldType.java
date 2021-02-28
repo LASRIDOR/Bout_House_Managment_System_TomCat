@@ -10,7 +10,7 @@ public enum ReservationInfoFieldType implements Informable {
     //NEW_TIME_WINDOW("New Time Window (separate with an underscore, boat type is optional, i.e. _11:00_12:00_4X+)", "^([A-Za-z0-9 ]*[A-Za-z0-9][A-Za-z0-9 ])_*([0-1]?[0-9]|2[0-3]):[0-5][0-9]_*([0-1]?[0-9]|2[0-3]):[0-5][0-9](_(?:1X|2\\-|2X\\+|2\\+|2\\X|4\\+|4\\-|4X\\+|4X|8X\\+|8\\+))?"),
     //EXISTING_TIME_WINDOW("Existing Time Window i.e. Monday rowing", "^([A-Za-z0-9 ]*[A-Za-z0-9][A-Za-z0-9 ])"),
     TIME_WINDOW("Time window", null),
-    BOAT_TYPE("Boat Type: (1X/2-/2+/2X/2X+/4+/4-/4X+/4X/8X+/8+) (Narrow/Wide) (FlatWater/Coastal)\ni.e. 2- Wide Coastal",
+    BOAT_TYPE("Boat Type: (1X/2-/2+/2X/2X+/4+/4-/4X+/4X/8X+/8+) (Narrow/Wide) (FlatWater/Coastal) i.e. 2- Wide Coastal",
             "^(?:1X|2\\-|2X\\+|2\\+|2X|4\\+|4\\-|4X\\+|4X|8X\\+|8\\+)\\s*(?:Narrow|Wide)\\s*(?:FlatWater|Coastal)$"),
     NAME_OF_RESERVATION_MAKER("Name of Reservation Maker", "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$"),
     DATE_OF_RESERVATION("Date of Reservation", null),
@@ -53,7 +53,7 @@ public enum ReservationInfoFieldType implements Informable {
             case "Time window":
                 informableToReturn = ReservationInfoFieldType.TIME_WINDOW;
                 break;
-            case "Boat Type: (1X/2-/2+/2X/2X+/4+/4-/4X+/4X/8X+/8+) (Narrow/Wide) (FlatWater/Coastal)\ni.e. 2- Wide Coastal":
+            case "Boat Type: (1X/2-/2+/2X/2X+/4+/4-/4X+/4X/8X+/8+) (Narrow/Wide) (FlatWater/Coastal) i.e. 2- Wide Coastal":
                 informableToReturn = ReservationInfoFieldType.BOAT_TYPE;
                 break;
             case "Name of Reservation Maker":

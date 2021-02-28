@@ -46,7 +46,7 @@ public class CreateReservationServlet extends HttpServlet {
         PrintWriter out = resp.getWriter();
 
         try {
-            String namesOfRowersString = "";
+            StringBuilder namesOfRowersString = new StringBuilder();
             BoutHouseDataType boutHouseDataType = BoutHouseDataType.RESERVATION;// = ServletUtils.getTypeOfManager(req);
             InfoField nameOfReservationMaker = InfoFieldMaker.createInfoField(MemberManager.getNameOfLoggedMember(emailFromParameter), ReservationInfoFieldType.NAME_OF_RESERVATION_MAKER);
             ArrayList<InfoField> reservationFields = new ArrayList<>();
@@ -59,7 +59,7 @@ public class CreateReservationServlet extends HttpServlet {
                     String paramValues = req.getParameter(paramName);
                     if (!paramValues.equals("")) {
                         if (paramName.contains("RowerNo.")) {
-                            namesOfRowersString += paramValues + ",";
+                            namesOfRowersString.append(paramValues).append(",");
                         }
                         else {
                             boutHouseDataType = (ServletUtils.isFieldOfTimeWindowType(paramName)) ? BoutHouseDataType.TIME_WINDOW : BoutHouseDataType.RESERVATION;
@@ -67,7 +67,7 @@ public class CreateReservationServlet extends HttpServlet {
                             InfoField currentFieldAsInfoField = ServletUtils.getInfoField(req, typeOfField);
 
                             if (paramName.equals(ReservationInfoFieldType.NAME_ROWER.getNameOfField())) {
-                                namesOfRowersString += paramValues;
+                                namesOfRowersString.append(paramValues);
                             }
                             if (typeOfField instanceof TimeWindowInfoFieldType) {
                                 timeWindowFields.add(currentFieldAsInfoField);
@@ -87,7 +87,7 @@ public class CreateReservationServlet extends HttpServlet {
             else {
                 reservationFields.add(ServletUtils.createTemporaryTimeWindowForReservation(timeWindowFields));
             }
-            reservationFields.add(InfoFieldMaker.createInfoField(namesOfRowersString, ReservationInfoFieldType.NAMES_OF_ROWERS));
+            reservationFields.add(InfoFieldMaker.createInfoField(namesOfRowersString.toString(), ReservationInfoFieldType.NAMES_OF_ROWERS));
 
             boutHouseManager.createNewInstance(boutHouseDataType, emailFromParameter, reservationFields);
             fields.put("message", "Instance was created successfully");

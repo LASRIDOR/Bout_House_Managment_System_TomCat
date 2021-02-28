@@ -5,7 +5,7 @@ const TIME_WINDOW_NAME_KEY = "Time Window Name"
 const ACTIVITY_START_TIME_KEY = "Activity Start Time"
 const ACTIVITY_END_TIME_KEY = "Activity End Time"
 const OPTIONAL_BOAT_TYPE_KEY = "(Optional) Boat Type: (1X/2-/2+/2X/2X+/4+/4-/4X+/4X/8X+/8+) " +
-    "(Narrow/Wide) (FlatWater/Coastal)\ni.e. 2- Wide Coastal"
+    "(Narrow/Wide) (FlatWater/Coastal) i.e. 2- Wide Coastal"
 const TIME_WINDOW_NAME_ID_KEY = "Time Window NameID"
 
 

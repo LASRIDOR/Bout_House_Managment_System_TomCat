@@ -34,7 +34,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Enumeration;
 
-@WebServlet(name = "UpdateServlet", urlPatterns = "/update reservation")
+@WebServlet(name = "UpdateReservationServlet", urlPatterns = "/update reservation")
 public class UpdateReservationServlet extends HttpServlet {
     private static final String SIGN_UP_URL = "/webApp/login";
     private static final String NOTIFY_ALL_MEMBER_URL = "/notify all members";
@@ -48,7 +48,7 @@ public class UpdateReservationServlet extends HttpServlet {
         JSONObject fields = new JSONObject();
 
         try {
-            String namesOfRowersString = "";
+            StringBuilder namesOfRowersString = new StringBuilder();
             BoutHouseDataType boutHouseDataType = ServletUtils.getTypeOfManager(req);
             InfoField<String> idOfInstance = ServletUtils.getIdOfInstance(req, boutHouseDataType);
             ArrayList<InfoField> timeWindowFields = new ArrayList<>();
@@ -60,7 +60,7 @@ public class UpdateReservationServlet extends HttpServlet {
                     String paramValues = req.getParameter(paramName);
                     if (!paramValues.equals("")) {
                         if (paramName.contains("RowerNo.")) {
-                            namesOfRowersString += paramValues + ",";
+                            namesOfRowersString.append(paramValues).append(",");
                         }
                         else {
                             if (paramName.equals(TimeWindowInfoFieldType.TIME_WINDOW_NAME.getNameOfField()) ||
@@ -82,8 +82,8 @@ public class UpdateReservationServlet extends HttpServlet {
                 }
             }
 
-            if (!namesOfRowersString.isEmpty()) {
-                InfoField fieldToUpdate = InfoFieldMaker.createInfoField(namesOfRowersString, ReservationInfoFieldType.NAMES_OF_ROWERS);
+            if (namesOfRowersString.length() > 0) {
+                InfoField fieldToUpdate = InfoFieldMaker.createInfoField(namesOfRowersString.toString(), ReservationInfoFieldType.NAMES_OF_ROWERS);
                 boutHouseManager.updateSystemInstance(boutHouseDataType, emailFromParameter, idOfInstance, fieldToUpdate);
             }
 
